@@ -1,0 +1,160 @@
+{
+    "linear": {
+        "name": "SVM (Linear - Tuyến tính)",
+        "kernel": "linear",
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support_vectors_count": 23,
+        "support_vectors_per_class": [
+            3,
+            11,
+            9
+        ],
+        "train_time_ms": 0.662,
+        "pred_time_ms": 0.004,
+        "confusion_matrix": [
+            [
+                10,
+                0,
+                0
+            ],
+            [
+                0,
+                10,
+                0
+            ],
+            [
+                0,
+                0,
+                10
+            ]
+        ],
+        "params": {
+            "C": 1.0
+        },
+        "train_samples": 120,
+        "test_samples": 30
+    },
+    "rbf": {
+        "name": "SVM (RBF - Phi tuyến Gaussian)",
+        "kernel": "rbf",
+        "accuracy": 0.9667,
+        "precision": 0.9697,
+        "recall": 0.9667,
+        "f1_score": 0.9666,
+        "support_vectors_count": 49,
+        "support_vectors_per_class": [
+            5,
+            23,
+            21
+        ],
+        "train_time_ms": 1.459,
+        "pred_time_ms": 0.007,
+        "confusion_matrix": [
+            [
+                10,
+                0,
+                0
+            ],
+            [
+                0,
+                9,
+                1
+            ],
+            [
+                0,
+                0,
+                10
+            ]
+        ],
+        "params": {
+            "C": 1.0,
+            "gamma": "scale"
+        },
+        "train_samples": 120,
+        "test_samples": 30
+    },
+    "poly": {
+        "name": "SVM (Polynomial - Đa thức bậc 3)",
+        "kernel": "poly",
+        "accuracy": 0.9667,
+        "precision": 0.9697,
+        "recall": 0.9667,
+        "f1_score": 0.9666,
+        "support_vectors_count": 16,
+        "support_vectors_per_class": [
+            4,
+            6,
+            6
+        ],
+        "train_time_ms": 0.674,
+        "pred_time_ms": 0.005,
+        "confusion_matrix": [
+            [
+                10,
+                0,
+                0
+            ],
+            [
+                0,
+                9,
+                1
+            ],
+            [
+                0,
+                0,
+                10
+            ]
+        ],
+        "params": {
+            "C": 1.0,
+            "gamma": "scale",
+            "degree": 3,
+            "coef0": 1.0
+        },
+        "train_samples": 120,
+        "test_samples": 30
+    },
+    "sigmoid": {
+        "name": "SVM (Sigmoid - Hàm Hyperbolic)",
+        "kernel": "sigmoid",
+        "accuracy": 0.1,
+        "precision": 0.05,
+        "recall": 0.1,
+        "f1_score": 0.0667,
+        "support_vectors_count": 120,
+        "support_vectors_per_class": [
+            40,
+            40,
+            40
+        ],
+        "train_time_ms": 2.182,
+        "pred_time_ms": 0.033,
+        "confusion_matrix": [
+            [
+                3,
+                0,
+                7
+            ],
+            [
+                7,
+                0,
+                3
+            ],
+            [
+                10,
+                0,
+                0
+            ]
+        ],
+        "params": {
+            "C": 1.0,
+            "gamma": "scale",
+            "coef0": 0.0
+        },
+        "train_samples": 120,
+        "test_samples": 30
+    }
+}

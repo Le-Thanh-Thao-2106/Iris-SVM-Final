@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: iris-svm
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SVM_API_HOST
+        fromService:
+          name: iris-svm-api
+          type: web
+          property: host
+
+  - type: web
+    name: iris-svm-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeployTrigger: commit
