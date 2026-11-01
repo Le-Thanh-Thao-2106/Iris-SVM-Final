@@ -2935,7 +2935,16 @@ window.handleGateAuthSubmit = async function(e) {
             .maybeSingle();
 
           if (dbUser) {
-            if (dbUser.password && dbUser.password !== password) {
+            // Hỗ trợ cả mật khẩu BCrypt (mới) và dữ liệu văn bản cũ trong giai đoạn chuyển đổi.
+            let passwordValid = !dbUser.password || dbUser.password === password;
+            if (dbUser.password && /^\$2[aby]\$/.test(dbUser.password)) {
+              const { data: verified, error: verifyError } = await supabaseClient.rpc('verify_user_password', {
+                p_email: email,
+                p_password: password
+              });
+              passwordValid = !verifyError && verified === true;
+            }
+            if (!passwordValid) {
               if (errBox) {
                 errBox.style.display = 'block';
                 errBox.innerText = '⚠️ Mật khẩu không chính xác! Vui lòng kiểm tra lại.';
@@ -3034,6 +3043,103 @@ window.handleGateAuthSubmit = async function(e) {
       submitBtn.disabled = false;
       submitBtn.innerText = isSignUp ? 'Tạo tài khoản mới' : 'Đăng nhập vào Hệ thống';
     }
+  }
+};
+
+// =====================================================================
+// ĐỔI MẬT KHẨU: xác thực email + mật khẩu hiện tại qua backend
+// =====================================================================
+let passwordChangeMode = 'forgot';
+
+function setForgotFeedback(message, type = 'error') {
+  const box = document.getElementById('forgotFeedback');
+  if (!box) return;
+  box.textContent = message;
+  box.className = `mt-4 p-3 rounded-xl text-xs ${type === 'success' ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300' : 'bg-red-500/15 border border-red-500/30 text-red-300'}`;
+  box.classList.remove('hidden');
+}
+
+window.openForgotPasswordModal = function() {
+  passwordChangeMode = 'forgot';
+  const emailGroup = document.getElementById('forgotEmailGroup');
+  if (emailGroup) emailGroup.classList.remove('hidden');
+  const description = document.getElementById('passwordChangeDescription');
+  if (description) description.textContent = 'Nhập email và mật khẩu hiện tại của tài khoản để tạo mật khẩu mới.';
+  const email = document.getElementById('gateEmailInput')?.value.trim() || '';
+  document.getElementById('forgotEmail').value = email;
+  ['forgotCurrentPassword', 'forgotNewPassword', 'forgotConfirmPassword'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = '';
+  });
+  document.getElementById('forgotFeedback')?.classList.add('hidden');
+  document.getElementById('forgotPasswordModal')?.classList.remove('hidden');
+};
+
+window.closeForgotPasswordModal = function() {
+  document.getElementById('forgotPasswordModal')?.classList.add('hidden');
+  passwordChangeMode = 'forgot';
+  document.getElementById('forgotEmailGroup')?.classList.remove('hidden');
+  const btn = document.getElementById('forgotChangePasswordBtn');
+  if (btn) btn.textContent = 'Xác nhận đổi mật khẩu';
+};
+
+// Mở cùng khung đổi mật khẩu từ tài khoản đang đăng nhập.
+// Email được lấy trực tiếp từ phiên người dùng hiện tại và không cho sửa.
+window.openLoggedInChangePasswordModal = function() {
+  if (!currentUser || currentUser.id === 'guest_user' || !currentUser.email) {
+    alert('Vui lòng đăng nhập trước khi đổi mật khẩu.');
+    return;
+  }
+  passwordChangeMode = 'logged-in';
+  const emailInput = document.getElementById('forgotEmail');
+  if (emailInput) emailInput.value = currentUser.email;
+  document.getElementById('forgotEmailGroup')?.classList.add('hidden');
+  const description = document.getElementById('passwordChangeDescription');
+  if (description) description.textContent = `Đổi mật khẩu cho tài khoản ${currentUser.email}. Vui lòng nhập mật khẩu hiện tại và mật khẩu mới.`;
+  ['forgotCurrentPassword', 'forgotNewPassword', 'forgotConfirmPassword'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = '';
+  });
+  document.getElementById('forgotFeedback')?.classList.add('hidden');
+  document.getElementById('forgotChangePasswordBtn').textContent = 'Cập nhật mật khẩu';
+  window.closeAuthModal();
+  document.getElementById('forgotPasswordModal')?.classList.remove('hidden');
+};
+
+
+window.submitNewPassword = async function() {
+  const email = (passwordChangeMode === 'logged-in' ? currentUser.email : document.getElementById('forgotEmail')?.value).trim().toLowerCase();
+  const currentPassword = document.getElementById('forgotCurrentPassword')?.value || '';
+  const newPassword = document.getElementById('forgotNewPassword')?.value || '';
+  const confirmPassword = document.getElementById('forgotConfirmPassword')?.value || '';
+  const btn = document.getElementById('forgotChangePasswordBtn');
+
+  if (!/^\S+@\S+\.\S+$/.test(email)) return setForgotFeedback('Vui lòng nhập email hợp lệ.');
+  if (!currentPassword) return setForgotFeedback('Vui lòng nhập mật khẩu hiện tại.');
+  if (newPassword.length < 8) return setForgotFeedback('Mật khẩu mới phải có ít nhất 8 ký tự.');
+  if (newPassword !== confirmPassword) return setForgotFeedback('Mật khẩu xác nhận không khớp.');
+  if (currentPassword === newPassword) return setForgotFeedback('Mật khẩu mới phải khác mật khẩu hiện tại.');
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Đang cập nhật...'; }
+  try {
+    const response = await fetch('/api/auth/change-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, currentPassword, newPassword })
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Không thể đổi mật khẩu.');
+
+    setForgotFeedback('Đổi mật khẩu thành công! Mật khẩu mới đã được lưu an toàn.', 'success');
+    if (passwordChangeMode === 'forgot') {
+      const loginEmail = document.getElementById('gateEmailInput');
+      if (loginEmail) loginEmail.value = email;
+    }
+    setTimeout(() => window.closeForgotPasswordModal(), 1600);
+  } catch (error) {
+    setForgotFeedback(error.message || 'Có lỗi xảy ra, vui lòng thử lại.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Xác nhận đổi mật khẩu'; }
   }
 };
 

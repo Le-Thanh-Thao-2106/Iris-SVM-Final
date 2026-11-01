@@ -213,3 +213,111 @@ VALUES
     'Website phân loại hoa Iris bằng mô hình SVM (Support Vector Machine) chuyên sâu. Hệ thống cung cấp khả năng tự động nhận diện 4 đặc trưng, trực quan hóa ranh giới quyết định (Decision Boundary), huấn luyện đa Kernel (Linear, RBF, Poly, Sigmoid), lưu trữ thí nghiệm và so sánh Benchmark hiệu năng thuật toán.'
 )
 ON CONFLICT (key) DO NOTHING;
+
+-- =========================================================
+-- 13. BẢO MẬT MẬT KHẨU BẰNG BCRYPT
+-- =========================================================
+
+-- Hàm tự động băm mật khẩu
+CREATE OR REPLACE FUNCTION public.hash_user_password()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Chỉ xử lý khi thêm mới hoặc mật khẩu thực sự thay đổi
+    IF TG_OP = 'INSERT'
+       OR NEW.password IS DISTINCT FROM OLD.password THEN
+
+        -- Không băm lại nếu mật khẩu đã ở dạng BCrypt
+        IF NEW.password IS NOT NULL
+           AND NEW.password NOT LIKE '$2a$%'
+           AND NEW.password NOT LIKE '$2b$%'
+           AND NEW.password NOT LIKE '$2y$%' THEN
+
+            NEW.password := crypt(NEW.password, gen_salt('bf', 12));
+
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+
+-- Tự động băm mật khẩu trong bảng app_users
+DROP TRIGGER IF EXISTS trg_hash_app_users_password
+ON public.app_users;
+
+CREATE TRIGGER trg_hash_app_users_password
+BEFORE INSERT OR UPDATE OF password
+ON public.app_users
+FOR EACH ROW
+EXECUTE FUNCTION public.hash_user_password();
+
+
+-- Tự động băm mật khẩu trong bảng profiles
+DROP TRIGGER IF EXISTS trg_hash_profiles_password
+ON public.profiles;
+
+CREATE TRIGGER trg_hash_profiles_password
+BEFORE INSERT OR UPDATE OF password
+ON public.profiles
+FOR EACH ROW
+EXECUTE FUNCTION public.hash_user_password();
+
+
+-- =========================================================
+-- 14. CHUYỂN MẬT KHẨU CŨ SANG DẠNG BCRYPT
+-- =========================================================
+
+UPDATE public.app_users
+SET password = password
+WHERE password IS NOT NULL
+  AND password NOT LIKE '$2a$%'
+  AND password NOT LIKE '$2b$%'
+  AND password NOT LIKE '$2y$%';
+
+
+UPDATE public.profiles
+SET password = password
+WHERE password IS NOT NULL
+  AND password NOT LIKE '$2a$%'
+  AND password NOT LIKE '$2b$%'
+  AND password NOT LIKE '$2y$%';
+
+
+-- =========================================================
+-- 15. HÀM KIỂM TRA MẬT KHẨU KHI ĐĂNG NHẬP
+-- =========================================================
+
+CREATE OR REPLACE FUNCTION public.verify_user_password(
+    p_email TEXT,
+    p_password TEXT
+)
+RETURNS BOOLEAN
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, extensions
+AS $$
+DECLARE
+    stored_password TEXT;
+BEGIN
+    SELECT password
+    INTO stored_password
+    FROM public.app_users
+    WHERE email = LOWER(TRIM(p_email));
+
+    IF stored_password IS NULL THEN
+        RETURN FALSE;
+    END IF;
+
+    RETURN stored_password = crypt(p_password, stored_password);
+END;
+$$;
+
+-- Cho phép ứng dụng gọi hàm kiểm tra đăng nhập
+REVOKE ALL ON FUNCTION public.verify_user_password(TEXT, TEXT)
+FROM PUBLIC;
+
+GRANT EXECUTE ON FUNCTION public.verify_user_password(TEXT, TEXT)
+TO anon, authenticated;

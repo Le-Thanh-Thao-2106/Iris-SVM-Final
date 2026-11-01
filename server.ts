@@ -3,6 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { createClient } from '@supabase/supabase-js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -59,6 +60,70 @@ function roundTo(num: number, decimals: number): number {
 function randRange(min: number, max: number): number {
   return Math.random() * (max - min) + min;
 }
+
+// ── Change password: verify current password, then update via Supabase ────────
+// Service-role key is used only on the server. Never expose it to the browser.
+const resetSupabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
+const resetServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const adminSupabase = resetSupabaseUrl && resetServiceKey
+  ? createClient(resetSupabaseUrl, resetServiceKey, { auth: { persistSession: false } })
+  : null;
+
+app.post('/api/auth/change-password', async (req, res) => {
+  try {
+    const email = String(req.body?.email || '').trim().toLowerCase();
+    const currentPassword = String(req.body?.currentPassword || '');
+    const newPassword = String(req.body?.newPassword || '');
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      return res.status(400).json({ error: 'Email không hợp lệ.' });
+    }
+    if (!currentPassword || newPassword.length < 8) {
+      return res.status(400).json({ error: 'Vui lòng nhập mật khẩu hiện tại và mật khẩu mới tối thiểu 8 ký tự.' });
+    }
+    if (currentPassword === newPassword) {
+      return res.status(400).json({ error: 'Mật khẩu mới phải khác mật khẩu hiện tại.' });
+    }
+    if (!adminSupabase) {
+      return res.status(503).json({ error: 'Backend chưa được cấu hình kết nối Supabase.' });
+    }
+
+    // Hàm SQL verify_user_password dùng crypt() để kiểm tra BCrypt, không đọc mật khẩu thô.
+    const { data: isValid, error: verifyError } = await adminSupabase.rpc('verify_user_password', {
+      p_email: email,
+      p_password: currentPassword
+    });
+    if (verifyError) {
+      console.error('Password verification error:', verifyError);
+      return res.status(500).json({ error: 'Không thể xác thực mật khẩu. Hãy kiểm tra hàm verify_user_password trong Supabase.' });
+    }
+    if (isValid !== true) {
+      return res.status(401).json({ error: 'Email hoặc mật khẩu hiện tại không chính xác.' });
+    }
+
+    // Trigger BCrypt đã cài trong SQL sẽ tự động băm newPassword trước khi lưu.
+    const { data: updatedUser, error: updateError } = await adminSupabase
+      .from('app_users')
+      .update({ password: newPassword })
+      .eq('email', email)
+      .select('id')
+      .maybeSingle();
+    if (updateError) throw updateError;
+    if (!updatedUser) return res.status(404).json({ error: 'Không tìm thấy tài khoản trong app_users.' });
+
+    // Đồng bộ bảng profiles nếu tài khoản có bản ghi tương ứng.
+    const { error: profileError } = await adminSupabase
+      .from('profiles')
+      .update({ password: newPassword, updated_at: new Date().toISOString() })
+      .eq('email', email);
+    if (profileError) console.warn('Không đồng bộ được profiles:', profileError.message);
+
+    return res.json({ success: true, message: 'Đổi mật khẩu thành công.' });
+  } catch (error) {
+    console.error('Change password error:', error);
+    return res.status(500).json({ error: 'Không thể cập nhật mật khẩu. Vui lòng thử lại.' });
+  }
+});
 
 // ── API Endpoints ─────────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {
