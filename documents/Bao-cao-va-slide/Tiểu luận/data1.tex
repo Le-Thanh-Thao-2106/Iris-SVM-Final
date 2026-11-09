@@ -1,0 +1,1283 @@
+\documentclass{article}
+\usepackage[T5]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{mathptmx}
+\usepackage{amsthm} 
+\newtheorem{theorem}{Định lý}[section]
+\usepackage[fontsize=13pt]{scrextend}
+\usepackage[paper=a4paper, left=2.5cm, right=1.5cm, top=2cm, bottom=2cm]{geometry}
+\linespread{1.5}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{caption}              
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{eso-pic}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{amsmath, amssymb}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tocloft}
+\usepackage{hyperref}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\contentsname}{\Large \bfseries MỤC LỤC}
+
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{green!50!black},
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	breaklines=true,
+	frame=single,
+}
+
+
+\newcommand\BackgroundPic{
+	\put(0,0){
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill
+			\centering
+			\includegraphics[width=\paperwidth,height=\paperheight]{"D:/Downloads/mẫu bìa.pdf"}
+			\vfill
+}}}
+
+\begin{document}
+	\setcounter{secnumdepth}{0}
+	\AddToShipoutPicture*{\BackgroundPic}
+	\thispagestyle{empty}
+	\vspace*{1cm}
+	\begin{center}
+		\vspace{-0.3cm}
+		
+		\textbf{\large{ĐẠI HỌC ĐÀ NẴNG \\ TRƯỜNG ĐẠI HỌC SƯ PHẠM}}
+		
+		\vspace{0.3cm} 
+		\includegraphics[width=0.4\textwidth]{"C:/Users/Admin/Downloads/logokhoa.jpg"}
+		
+		\vspace{0.4cm} 
+		{\Large \textbf{BÁO CÁO TIỂU LUẬN} \par}
+		\vspace{0.4cm}
+		
+		{\large \textbf{MÔN HỌC: HỌC MÁY NÂNG CAO} }
+		
+		\vspace{2.5cm} 
+		{\Large
+			\begin{tabular}{l l}
+				\textbf{Giáo viên hướng dẫn} & : TS. Phan Trần Đức Minh\\
+				\textbf{Sinh viên thực hiện} & : Lê Thanh Thảo \\
+				\textbf{MSSV} & : 3110524028 \\
+				\textbf{Lớp}                 & : 24CKDL \\
+			\end{tabular}
+		}
+		
+		\vspace{3.5cm}
+		{\large \textit{Đà Nẵng, ngày 21 tháng 9 năm 2026}}
+	\end{center}
+	\clearpage
+	\AddToShipoutPicture{}
+	
+	\newpage
+	
+	\tableofcontents
+	\newpage
+	
+	\section{\centering DANH MỤC CÁC TỪ VIẾT TẮT}
+	\vspace{-0.5cm}
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{p{2cm} p{6.5cm} p{6.5cm}}
+			\toprule
+			\textbf{Từ viết tắt} & \textbf{Tên tiếng Anh nguyên bản} & \textbf{Ý nghĩa tiếng Việt} \\
+			\midrule
+			
+			\textbf{AI} 
+			& Artificial Intelligence 
+			& Trí tuệ nhân tạo \\
+			
+			\textbf{ML} 
+			& Machine Learning 
+			& Học máy \\
+			
+			\textbf{SVM} 
+			& Support Vector Machine 
+			& Máy vector hỗ trợ \\
+			
+			\textbf{SVC} 
+			& C-Support Vector Classification  
+			& Phân loại bằng máy vector hỗ trợ \\
+			
+			\textbf{CSV} 
+			& Comma-Separated Values
+			& Giá trị phân tách bằng dấu phẩy \\
+			
+			\textbf{OvO} 
+			& One-vs-One 
+			& Chiến lược phân loại một-với-một \\
+			
+			\textbf{API} 
+			& Application Programming Interface 
+			& Giao diện lập trình ứng dụng \\
+			
+			\textbf{ASGI} 
+			& Asynchronous Server Gateway Interface 
+			& Giao diện cổng máy chủ bất đồng bộ \\
+			
+			\textbf{REST} 
+			& Representational State Transfer 
+			& Kiểu kiến trúc truyền trạng thái biểu diễn \\
+			
+			\textbf{HTTP} 
+			& Hypertext Transfer Protocol 
+			& Giao thức truyền tải siêu văn bản \\
+			
+			\textbf{JSON} 
+			& JavaScript Object Notation 
+			& Định dạng dữ liệu JavaScript Object Notation \\
+			
+			\textbf{CORS} 
+			& Cross-Origin Resource Sharing 
+			& Chia sẻ tài nguyên giữa các nguồn khác nhau \\
+			
+			\textbf{DOM} 
+			& Document Object Model 
+			& Mô hình đối tượng tài liệu \\
+			
+			\textbf{UI/UX} 
+			& User Interface / User Experience 
+			& Giao diện và trải nghiệm người dùng \\
+			
+			\textbf{SPA} 
+			& Single Page Application 
+			& Ứng dụng một trang \\
+			
+			\textbf{URL} 
+			& Uniform Resource Locator 
+			& Địa chỉ tài nguyên đồng nhất \\
+			
+			\textbf{CI/CD} 
+			& Continuous Integration / Continuous Deployment 
+			& Tích hợp liên tục / Triển khai liên tục \\
+			
+			\textbf{PaaS} 
+			& Platform as a Service 
+			& Nền tảng dưới dạng dịch vụ \\
+			
+			
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\newpage
+	
+	\section{\centering LỜI CẢM ƠN}
+	
+	\hspace{0.5cm}
+	Để hoàn thành đề tài \textbf{"Hệ thống nhận diện loài hoa Iris bằng mô hình Support Vector Machine (SVM) và Ứng dụng Web trực tuyến"} một cách trọn vẹn nhất, bên cạnh sự nỗ lực của bản thân, em đã nhận được sự hỗ trợ, giúp đỡ rất nhiệt tình từ Thầy Phan Trần Đức Minh và bạn bè.
+	
+	Lời đầu tiên, em xin gửi lời cảm ơn chân thành và sâu sắc nhất đến Giảng viên hướng dẫn — Thầy Phan Trần Đức Minh, người đã tận tình chỉ bảo, định hướng tư duy khoa học và đưa ra những lời khuyên chuyên môn vô cùng quý báu trong suốt quá trình em thực hiện. Những tri thức và sự tận tụy của Thầy không chỉ giúp em hoàn thiện sản phẩm này mà còn là hành trang quý giá cho con đường học tập của em sau này.
+	
+	Em xin trân trọng cảm ơn Ban Giám hiệu Trường Đại học Sư phạm - Đại học Đà Nẵng đã đưa môn \textbf{Học máy nâng cao} vào chương trình đào tạo. Môn học thực sự bổ ích, giúp em tiếp cận với những công nghệ hiện đại, phát triển tư duy logic và mở ra nhiều cơ hội ứng dụng thực tiễn trong ngành Khoa học dữ liệu hiện nay.
+	
+	Đồng thời, em xin gửi lời cảm ơn chân thành đến quý Thầy/Cô trong Khoa Toán-Tin đã truyền đạt cho em những nền tảng kiến thức chuyên môn vững chắc và tạo điều kiện học tập tốt nhất cho em trong suốt thời gian qua.
+	
+	Dù đã cố gắng đầu tư thời gian và tâm huyết để hoàn thiện báo cáo cũng như xây dựng sản phẩm Web một cách chỉn chu nhất, song do hạn chế về mặt kinh nghiệm thực tế nên đề tài khó tránh khỏi những thiếu sót nhất định. Em rất mong nhận được những ý kiến đóng góp, nhận xét và chỉ bảo quý báu từ Thầy để sản phẩm của em ngày càng được hoàn thiện hơn.
+	
+	Em xin chân thành cảm ơn!
+	
+	\begin{flushright}
+		\textit{Đà Nẵng, ngày 21 tháng 9 năm 2026}\\
+		\textbf{Sinh viên thực hiện}\\
+		\vspace{1.5cm}
+		\textbf{Lê Thanh Thảo}
+	\end{flushright}
+	\newpage
+	
+	\section{\centering LỜI MỞ ĐẦU}
+	
+	\hspace{0.5cm}
+	Trong những năm gần đây, trí tuệ nhân tạo và học máy ngày càng được ứng dụng rộng rãi trong các bài toán nhận dạng, phân loại và hỗ trợ ra quyết định. Trong số các thuật toán học có giám sát, Support Vector Machine (SVM) là một phương pháp có cơ sở lý thuyết chặt chẽ, đặc biệt phù hợp với các bài toán phân loại có số lượng mẫu vừa phải và không gian đặc trưng có khả năng phân tách tốt.
+	
+	Bài toán phân loại hoa \textit{Iris} là một bài toán kinh điển trong học máy. Bộ dữ liệu gồm 150 mẫu thuộc ba loài \textit{Iris setosa}, \textit{Iris versicolor} và \textit{Iris virginica}; mỗi mẫu được mô tả bởi bốn đặc trưng: chiều dài đài hoa, chiều rộng đài hoa, chiều dài cánh hoa và chiều rộng cánh hoa. Do cấu trúc dữ liệu đơn giản nhưng vẫn thể hiện cả trường hợp phân tách tuyến tính và phi tuyến, bộ dữ liệu này rất thích hợp để minh họa nguyên lý hoạt động của SVM và kỹ thuật Kernel.
+	
+	Mục tiêu của đề tài là xây dựng một hệ thống hoàn chỉnh từ khâu chuẩn bị dữ liệu, huấn luyện mô hình, đánh giá hiệu năng đến triển khai trực tuyến. Điểm nổi bật của hệ thống là huấn luyện và lưu đồng thời bốn mô hình SVM sử dụng các Kernel Linear, RBF, Polynomial và Sigmoid. Kết quả huấn luyện được lưu thành các tệp mô hình và tệp thống kê để phục vụ API. Trên lớp giao diện web, người dùng có thể nhập thông số một mẫu hoa, thực hiện dự đoán, xem trực quan hóa dữ liệu, điều chỉnh siêu tham số trong SVM Playground, thực hiện thí nghiệm, phân tích tệp dữ liệu và xem lịch sử dự đoán.
+	
+	Bài báo cáo trình bày từ nền tảng toán học của SVM, đặc điểm bộ dữ liệu, quy trình huấn luyện và kiểm tra, kiến trúc phần mềm, công nghệ triển khai trực tuyến cho đến hướng dẫn sử dụng hệ thống. Các số liệu đánh giá trong báo cáo được lấy từ các tệp kết quả thực tế của dự án, đặc biệt là \texttt{metrics.json} và \texttt{weights.json}, nhằm bảo đảm tính nhất quán giữa báo cáo và chương trình đã xây dựng.
+	
+	
+	\newpage
+	\section{\centering CHƯƠNG 1: GIỚI THIỆU TỔNG QUAN}
+	\subsection{1.1. Bối cảnh}
+	\hspace{0.5cm}
+	Trong một hệ thống học máy thực tế, việc xây dựng một mô hình phân loại chỉ là một phần của bài toán. Một hệ thống có giá trị sử dụng cần trải qua chuỗi công việc gồm thu thập dữ liệu, tiền xử lý, huấn luyện, đánh giá, đóng gói mô hình, xây dựng API, xây dựng giao diện và triển khai lên môi trường trực tuyến. Vì vậy, đề tài được thực hiện theo hướng xây dựng một sản phẩm hoàn chỉnh thay vì chỉ dừng ở việc chạy một đoạn mã huấn luyện.
+	
+	Bộ dữ liệu \textit{Iris} được lựa chọn vì có cấu trúc rõ ràng, số lượng mẫu vừa phải và ba lớp tương đối dễ phân biệt. Đặc biệt, các đặc trưng về cánh hoa có khả năng phân tách các loài khá rõ, trong khi ranh giới giữa \textit{versicolor} và \textit{virginica} vẫn tạo ra tình huống có tính thử thách cho mô hình. Đây là điều kiện phù hợp để khảo sát các Kernel khác nhau của SVM.
+	
+	\subsection{1.2. Mục tiêu của đề tài}
+	\hspace{0.5cm}
+	Đề tài hướng đến các mục tiêu chính sau:
+	\begin{enumerate}
+		\item Trình bày cơ sở lý thuyết của thuật toán SVM, đặc biệt là ý tưởng Maximum Margin, Soft Margin, Support Vector, bài toán đối ngẫu và Kernel Trick.
+		\item Xây dựng bốn mô hình SVM với Kernel Linear, RBF, Polynomial và Sigmoid.
+		\item Chia dữ liệu thành tập huấn luyện và kiểm thử theo tỷ lệ 80/20, đồng thời sử dụng các chỉ số Accuracy, Precision, Recall và F1-score để đánh giá.
+		\item Lưu mô hình và các kết quả đánh giá thành các tệp có thể được sử dụng bởi lớp API.
+		\item Xây dựng hệ thống web có khả năng nhận thông số hoa và trả về loài được dự đoán.
+		\item Bổ sung các chức năng trực quan hóa dữ liệu, Decision Boundary, SVM Playground, thí nghiệm, benchmark, phân tích tệp và lịch sử nhận diện.
+		\item Triển khai hệ thống trực tuyến theo mô hình frontend -- backend, có endpoint Health Check để kiểm tra trạng thái dịch vụ.
+	\end{enumerate}
+	
+	\subsection{1.3. Phạm vi của báo cáo}
+	\hspace{0.5cm}
+	Báo cáo tập trung vào bộ dữ liệu Fisher Iris, mô hình SVM đa lớp sử dụng thư viện scikit-learn ở lớp huấn luyện, API FastAPI ở lớp phục vụ mô hình và frontend React/Vite ở lớp giao diện. Phần triển khai trực tuyến tập trung vào cấu trúc hiện có trong repository, trong đó frontend được đóng gói bằng Vite và server Node/Express, còn API mô hình có thể được phục vụ độc lập bằng FastAPI.
+	
+	\subsection{1.4. Kiến trúc tổng quát của hệ thống}
+	\hspace{0.5cm}
+	Hệ thống có thể được mô tả theo bốn lớp chính:
+	\begin{enumerate}
+		\item \textbf{Lớp dữ liệu và mô hình:} bộ dữ liệu Iris, mã huấn luyện \texttt{train.py}, bốn file mô hình \texttt{svm\_linear.pkl}, \texttt{svm\_rbf.pkl}, \texttt{svm\_poly.pkl}, \texttt{svm\_sigmoid.pkl}.
+		\item \textbf{Lớp API:} FastAPI tải các mô hình vào RAM, cung cấp các endpoint \texttt{/}, \texttt{/health}, \texttt{/metrics} và \texttt{/predict}.
+		\item \textbf{Lớp frontend:} React quản lý giao diện và các phân hệ; Vite đảm nhiệm quá trình build.
+		\item \textbf{Lớp lưu trữ và trạng thái:} LocalStorage/SessionStorage được dùng cho một số dữ liệu phía trình duyệt; dự án đồng thời có cấu hình Supabase cho tài khoản, lịch sử dự đoán và lịch sử thí nghiệm.
+	\end{enumerate}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[node distance=1.1cm, every node/.style={font=\small},
+			box/.style={draw, rounded corners, align=center, minimum width=3.5cm, minimum height=1cm},
+			arrow/.style={->, thick}]
+			
+			\node[box] (data) {Dữ liệu Iris\\150 mẫu, 4 đặc trưng};
+			\node[box, right=of data] (train) {\texttt{train.py}\\Huấn luyện 4 Kernel SVM};
+			\node[box, right=of train] (model) {4 file \texttt{.pkl}\\ metrics/weights};
+			
+			\node[box, below=1.5cm of model] (api) {FastAPI\\/health, /metrics, /predict};
+			\node[box, left=of api] (front) {React + Vite\\Giao diện Web};
+			\node[box, left=of front] (user) {Người dùng\\Trình duyệt};
+			
+			\draw[arrow] (data) -- (train);
+			\draw[arrow] (train) -- (model);
+			\draw[arrow] (model) -- (api);
+			\draw[arrow] (api) -- (front);
+			\draw[arrow] (user) -- (front);
+		\end{tikzpicture}
+		\caption{Kiến trúc khái quát của hệ thống Iris SVM}
+		\label{fig:architecture}
+	\end{figure}
+	
+	\newpage
+	\section{\centering CHƯƠNG 2: MÔ HÌNH SVM - CƠ SỞ LÝ THUYẾT}
+	\subsection{2.1. Khái niệm Support Vector Machine}
+	\hspace{0.5cm}
+	Support Vector Machine là một thuật toán học có giám sát được sử dụng cho phân loại và hồi quy. Với bài toán phân loại nhị phân, SVM tìm một siêu phẳng phân chia hai lớp sao cho khoảng cách từ siêu phẳng đến các mẫu gần nhất của hai lớp là lớn nhất. Các mẫu nằm gần ranh giới và có vai trò quyết định vị trí của siêu phẳng được gọi là Support Vectors.
+	
+	Giả sử dữ liệu huấn luyện gồm các cặp $(\mathbf{x}_i,y_i)$ với $\mathbf{x}_i\in\mathbb{R}^d$ và $y_i\in\{-1,+1\}$. Một siêu phẳng có dạng:
+	\begin{equation}
+		\mathbf{w}^{T}\mathbf{x}+b=0,
+	\end{equation}
+	trong đó $\mathbf{w}$ là vector pháp tuyến và $b$ là hệ số dịch chuyển.
+	
+	Quy tắc phân lớp được viết:
+	\begin{equation}
+		f(\mathbf{x})=\operatorname{sign}(\mathbf{w}^{T}\mathbf{x}+b).
+	\end{equation}
+	
+	\subsection{2.2. Ý tưởng Maximum Margin}
+	\hspace{0.5cm}
+	Nếu dữ liệu phân tách tuyến tính, có thể tồn tại nhiều siêu phẳng thỏa mãn điều kiện phân loại. SVM không chọn tùy ý một siêu phẳng mà tìm siêu phẳng có biên lớn nhất. Với cách chuẩn hóa $y_i(\mathbf{w}^{T}\mathbf{x}_i+b)\geq1$, khoảng cách từ một điểm đến siêu phẳng là:
+	\begin{equation}
+		\frac{|\mathbf{w}^{T}\mathbf{x}+b|}{\|\mathbf{w}\|}.
+	\end{equation}
+	
+	Hai siêu phẳng biên là:
+	\begin{equation}
+		\mathbf{w}^{T}\mathbf{x}+b=1,
+		\qquad
+		\mathbf{w}^{T}\mathbf{x}+b=-1.
+	\end{equation}
+	
+	Khoảng cách giữa hai biên bằng:
+	\begin{equation}
+		\frac{2}{\|\mathbf{w}\|}.
+	\end{equation}
+	
+	Do đó, tối đa hóa Margin tương đương với tối thiểu hóa $\|\mathbf{w}\|$. Bài toán tối ưu nguyên thủy có thể viết:
+	\begin{equation}
+		\min_{\mathbf{w},b}\quad \frac{1}{2}\|\mathbf{w}\|^2
+	\end{equation}
+	\begin{equation}
+		\text{với}\quad y_i(\mathbf{w}^{T}\mathbf{x}_i+b)\geq1,\quad i=1,\ldots,n.
+	\end{equation}
+	
+	\subsection{2.3. Soft Margin và tham số $C$}
+	\hspace{0.5cm}
+	Trong dữ liệu thực tế, các lớp có thể chồng lấn hoặc có nhiễu. Khi đó, yêu cầu tất cả mẫu đều nằm đúng phía của biên là quá chặt. SVM đưa vào biến slack $\xi_i\geq0$ để cho phép một số mẫu vi phạm biên:
+	\begin{equation}
+		\min_{\mathbf{w},b,\boldsymbol{\xi}}
+		\frac{1}{2}\|\mathbf{w}\|^2+C\sum_{i=1}^{n}\xi_i
+	\end{equation}
+	\begin{equation}
+		\text{với}\quad y_i(\mathbf{w}^{T}\mathbf{x}_i+b)\geq1-\xi_i,\quad \xi_i\geq0.
+	\end{equation}
+	
+	Tham số $C$ điều chỉnh sự đánh đổi giữa độ rộng Margin và mức phạt lỗi. Khi $C$ lớn, mô hình có xu hướng phạt mạnh các điểm vi phạm và cố gắng phân loại đúng nhiều mẫu huấn luyện hơn. Khi $C$ nhỏ, mô hình chấp nhận nhiều vi phạm hơn để có một Margin rộng hơn.
+	
+	\subsection{2.4. Hàm mất mát Hinge}
+	\hspace{0.5cm}
+	Soft Margin SVM có thể liên hệ với Hinge Loss:
+	\begin{equation}
+		L(y,f(\mathbf{x}))=\max(0,1-yf(\mathbf{x})).
+	\end{equation}
+	
+	Nếu một điểm được phân loại đúng và nằm ngoài biên, Hinge Loss bằng 0. Nếu điểm nằm trong biên hoặc bị phân loại sai, mô hình phải chịu một mức phạt tương ứng.
+	
+	\subsection{2.5. Dạng đối ngẫu và Support Vector}
+	\hspace{0.5cm}
+	Thông qua phương pháp nhân tử Lagrange, bài toán có thể chuyển sang dạng đối ngẫu:
+	\begin{equation}
+		\max_{\boldsymbol{\alpha}}
+		\sum_{i=1}^{n}\alpha_i
+		-\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^{n}
+		\alpha_i\alpha_jy_iy_j\mathbf{x}_i^{T}\mathbf{x}_j
+	\end{equation}
+	\begin{equation}
+		\text{s.t.}\quad
+		\alpha_i\geq0,
+		\qquad
+		\sum_{i=1}^{n}\alpha_i y_i=0.
+	\end{equation}
+	
+	Các mẫu có $\alpha_i>0$ là những mẫu quan trọng đối với nghiệm tối ưu và được gọi là Support Vectors. Vì vậy, SVM không cần mọi điểm dữ liệu đóng góp như nhau vào phương trình quyết định.
+	
+	Hàm quyết định có dạng:
+	\begin{equation}
+		f(\mathbf{x})=
+		\sum_{i\in SV}\alpha_i y_i K(\mathbf{x}_i,\mathbf{x})+b.
+	\end{equation}
+	
+	Đây chính là cơ sở để đưa Kernel vào SVM.
+	
+	\subsection{2.6. Kernel Trick}
+	\hspace{0.5cm}
+	Trong trường hợp dữ liệu không thể phân tách tuyến tính trong không gian ban đầu, ta có thể ánh xạ dữ liệu sang một không gian đặc trưng mới thông qua ánh xạ $\phi(\mathbf{x})$. Thay vì tính trực tiếp $\phi(\mathbf{x})$, Kernel Trick sử dụng:
+	\begin{equation}
+		K(\mathbf{x}_i,\mathbf{x}_j)=
+		\phi(\mathbf{x}_i)^T\phi(\mathbf{x}_j).
+	\end{equation}
+	
+	Nhờ đó, mô hình có thể tạo ranh giới phi tuyến mà không nhất thiết phải xây dựng tường minh vector đặc trưng trong không gian có chiều rất cao.
+	
+	\subsection{2.7. Bốn Kernel được sử dụng trong đề tài}
+	
+	\subsubsection{2.7.1. Kernel Linear}
+	\begin{equation}
+		K(\mathbf{x},\mathbf{z})=\mathbf{x}^{T}\mathbf{z}.
+	\end{equation}
+	
+	Kernel Linear phù hợp khi các lớp có thể phân chia tương đối tốt bằng siêu phẳng. Trong mã huấn luyện, mô hình được tạo với $C=1.0$.
+	
+	\subsubsection{2.7.2. Kernel RBF}
+	\begin{equation}
+		K(\mathbf{x},\mathbf{z})=
+		\exp\left(-\gamma\|\mathbf{x}-\mathbf{z}\|^2\right).
+	\end{equation}
+	
+	RBF là Kernel phi tuyến phổ biến. Trong dự án, $C=1.0$ và $\gamma=\texttt{scale}$. Khi sử dụng \texttt{scale}, scikit-learn xác định gamma dựa trên phương sai của dữ liệu và số chiều đặc trưng.
+	
+	\subsubsection{2.7.3. Kernel Polynomial}
+	\begin{equation}
+		K(\mathbf{x},\mathbf{z})=
+		(\gamma\mathbf{x}^{T}\mathbf{z}+r)^d.
+	\end{equation}
+	
+	Trong dự án, Polynomial được cấu hình với $C=1.0$, bậc $d=3$, $\gamma=\texttt{scale}$ và $r=1.0$ thông qua tham số \texttt{coef0}.
+	
+	\subsubsection{2.7.4. Kernel Sigmoid}
+	\begin{equation}
+		K(\mathbf{x},\mathbf{z})=
+		\tanh(\gamma\mathbf{x}^{T}\mathbf{z}+r).
+	\end{equation}
+	
+	Trong cấu hình huấn luyện, Sigmoid sử dụng $C=1.0$, $\gamma=\texttt{scale}$ và $r=0.0$.
+	
+	\subsection{2.8. SVM đa lớp}
+	\hspace{0.5cm}
+	Bộ dữ liệu Iris có ba lớp. Trong scikit-learn, \texttt{SVC} hỗ trợ bài toán đa lớp bằng cách xây dựng các bộ phân loại nhị phân theo chiến lược One-vs-One. Với $K=3$ lớp, số bộ phân loại cặp lớp là:
+	\begin{equation}
+		\frac{K(K-1)}{2}=\frac{3\times2}{2}=3.
+	\end{equation}
+	Kết quả cuối cùng được tổng hợp từ các bộ phân loại nhị phân để xác định lớp dự đoán.
+	
+	\subsection{2.9. Các chỉ số đánh giá}
+	\hspace{0.5cm}
+	\textbf{Accuracy} đo tỷ lệ dự đoán đúng trên tổng số mẫu:
+	\begin{equation}
+		Accuracy=\frac{TP+TN}{TP+TN+FP+FN}.
+	\end{equation}
+	
+	Trong bài toán đa lớp, báo cáo sử dụng Precision, Recall và F1 theo trung bình Macro. Với từng lớp:
+	\begin{equation}
+		Precision=\frac{TP}{TP+FP},
+		\qquad
+		Recall=\frac{TP}{TP+FN}.
+	\end{equation}
+	
+	F1-score được tính:
+	\begin{equation}
+		F1=2\frac{Precision\times Recall}{Precision+Recall}.
+	\end{equation}
+	
+	Macro-average lấy trung bình chỉ số của ba lớp, do đó mỗi loài có trọng số như nhau.
+	
+	\newpage
+	\section{\centering CHƯƠNG 3: DỮ LIỆU VÀ TRỰC QUAN HÓA DỮ LIỆU}
+	\subsection{3.1. Giới thiệu bộ dữ liệu Iris}
+	\hspace{0.5cm}
+	Bộ dữ liệu Fisher Iris gồm 150 mẫu thuộc ba loài: \textit{Iris setosa}, \textit{Iris versicolor} và \textit{Iris virginica}. Mỗi lớp có 50 mẫu. Mỗi mẫu có bốn đặc trưng liên tục, đơn vị centimet.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Các đặc trưng của bộ dữ liệu Iris}
+		\label{tab:features}
+		\begin{tabular}{lll}
+			\toprule
+			\textbf{STT} & \textbf{Đặc trưng} & \textbf{Ý nghĩa}\\
+			\midrule
+			1 & Sepal Length & Chiều dài đài hoa\\
+			2 & Sepal Width & Chiều rộng đài hoa\\
+			3 & Petal Length & Chiều dài cánh hoa\\
+			4 & Petal Width & Chiều rộng cánh hoa\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{3.2. Phân bố số lượng mẫu}
+	\hspace{0.5cm}
+	Dữ liệu có cấu trúc cân bằng hoàn toàn: mỗi lớp gồm 50 mẫu. Vì vậy, việc sử dụng Macro-average cho Precision, Recall và F1 là phù hợp để quan sát chất lượng trên từng loài mà không để lớp nào có trọng số lớn hơn chỉ vì có nhiều mẫu hơn.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				ybar,
+				bar width=1.1cm,
+				width=12cm,
+				height=7cm,
+				ymin=0,
+				ymax=60,
+				ylabel={Số lượng mẫu},
+				symbolic x coords={Setosa,Versicolor,Virginica},
+				xtick=data,
+				nodes near coords,
+				grid=major,
+				legend style={at={(0.5,-0.18)},anchor=north}
+				]
+				\addplot coordinates {(Setosa,50) (Versicolor,50) (Virginica,50)};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Phân bố mẫu theo ba lớp của bộ dữ liệu Iris}
+		\label{fig:classdistribution}
+	\end{figure}
+	
+	\subsection{3.3. Thống kê mô tả}
+	\hspace{0.5cm}
+	Các thống kê dưới đây được tính trực tiếp từ 150 mẫu được lưu trong \texttt{src/data/irisData.ts}. Độ lệch chuẩn được tính theo công thức của tổng thể với mẫu số bằng số lượng phần tử, phù hợp với cách tính thống kê trong hàm \texttt{getFeatureStats} của frontend.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Thống kê theo từng loài Iris}
+		\label{tab:classstats}
+		\small
+		\begin{tabular}{llrrrr}
+			\toprule
+			\textbf{Loài} & \textbf{Đặc trưng} & \textbf{Mean} & \textbf{Std} & \textbf{Min} & \textbf{Max}\\
+			\midrule
+			\multirow{4}{*}{Setosa}
+			& Sepal Length & 5.006 & 0.349 & 4.3 & 5.8\\
+			& Sepal Width  & 3.428 & 0.375 & 2.3 & 4.4\\
+			& Petal Length & 1.462 & 0.172 & 1.0 & 1.9\\
+			& Petal Width  & 0.246 & 0.104 & 0.1 & 0.6\\
+			\midrule
+			\multirow{4}{*}{Versicolor}
+			& Sepal Length & 5.936 & 0.511 & 4.9 & 7.0\\
+			& Sepal Width  & 2.770 & 0.311 & 2.0 & 3.4\\
+			& Petal Length & 4.260 & 0.465 & 3.0 & 5.1\\
+			& Petal Width  & 1.326 & 0.196 & 1.0 & 1.8\\
+			\midrule
+			\multirow{4}{*}{Virginica}
+			& Sepal Length & 6.588 & 0.629 & 4.9 & 7.9\\
+			& Sepal Width  & 2.974 & 0.319 & 2.2 & 3.8\\
+			& Petal Length & 5.552 & 0.546 & 4.5 & 6.9\\
+			& Petal Width  & 2.026 & 0.272 & 1.4 & 2.5\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{3.4. Nhận xét về khả năng phân tách}
+	\hspace{0.5cm}
+	Bảng \ref{tab:classstats} cho thấy Petal Length và Petal Width có sự khác biệt rõ rệt giữa Setosa với hai lớp còn lại. Setosa có Petal Length trung bình 1.462 cm, trong khi Versicolor và Virginica lần lượt có giá trị trung bình 4.260 cm và 5.552 cm. Petal Width cũng có xu hướng tương tự.
+	
+	Versicolor và Virginica gần nhau hơn, đặc biệt xét theo một số vùng giá trị của Petal Length và Petal Width. Đây là lý do trực quan hóa hai đặc trưng này thường cho thấy Setosa tách biệt khá rõ, còn ranh giới giữa Versicolor và Virginica khó hơn.
+	
+	\subsection{3.5. Trực quan hóa hai chiều}
+	\hspace{0.5cm}
+	Frontend của dự án có phân hệ ``Trực quan hóa Iris'', cho phép khám phá phân bố 2D theo các cặp đặc trưng. Ngoài ra, trang Nhận diện hiển thị biểu đồ Petal Length so với Petal Width và đánh dấu vị trí mẫu hiện tại. SVM Playground cho phép lựa chọn hai đặc trưng và hiển thị Decision Boundary tương ứng.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=13cm,
+				height=8cm,
+				xlabel={Petal Length (cm)},
+				ylabel={Petal Width (cm)},
+				xmin=0.5,xmax=7.2,
+				ymin=0,ymax=2.7,
+				grid=major,
+				% Tăng số cột của legend lên 4 để đủ cho Setosa, Versicolor, Virginica
+				legend style={at={(0.5,-0.18)},anchor=north,legend columns=4}
+				]
+				
+				% Lệnh \addplot 1: Chỉ cho Setosa - màu xanh
+				\addplot+[blue,only marks,mark=*,mark size=1.6pt] coordinates {
+					(1.4,0.2)(1.4,0.2)(1.3,0.2)(1.5,0.2)(1.4,0.2)(1.7,0.4)(1.4,0.3)(1.5,0.2)(1.4,0.2)(1.5,0.1)
+					(1.4,0.2)(1.6,0.2)(1.4,0.1)(1.1,0.1)(1.2,0.2)(1.5,0.4)(1.3,0.4)(1.4,0.3)(1.7,0.3)(1.5,0.3)
+				};
+				\addlegendentry{Setosa}
+				
+				% Lệnh \addplot 2: Chỉ cho Versicolor - màu đỏ
+				\addplot+[red,only marks,mark=*,mark size=1.6pt] coordinates {
+					(4.7,1.4)(4.5,1.5)(4.9,1.5)(4.0,1.3)(4.6,1.5)(4.5,1.3)(4.7,1.6)(3.3,1.0)(4.6,1.3)(3.9,1.4)
+					(4.0,1.0)(4.7,1.5)(4.4,1.4)(4.5,1.5)(4.1,1.0)(4.0,1.3)(4.4,1.2)(4.6,1.4)(4.0,1.2)(4.2,1.3)
+				};
+				\addlegendentry{ Versicolor}
+				
+				% Lệnh \addplot 3: Giữ nguyên cho Virginica - màu mặc định (thường là xanh lá hoặc đen tùy cấu hình)
+				\addplot+[only marks,mark=triangle*,mark size=1.8pt] coordinates {
+					(6.0,2.5)(5.1,1.9)(5.9,2.1)(5.6,1.8)(5.8,2.2)(6.6,2.1)(4.5,1.7)(6.3,1.8)(5.8,1.8)(6.1,2.5)
+					(5.1,2.0)(5.3,1.9)(5.5,2.1)(5.0,2.0)(5.1,2.4)(5.3,2.3)(5.5,1.8)(6.7,2.2)(6.9,2.3)(5.0,1.5)
+				};
+				\addlegendentry{Virginica}
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Minh họa không gian Petal Length--Petal Width}
+		\label{fig:petalspace}
+	\end{figure}
+	
+	Hình \ref{fig:petalspace} chỉ nhằm minh họa xu hướng phân bố; giao diện web sử dụng toàn bộ 150 mẫu để vẽ biểu đồ tương tác. Trong báo cáo, việc đưa một phần điểm vào hình giúp tài liệu gọn và dễ đọc hơn, trong khi các thống kê và kết quả đánh giá vẫn sử dụng toàn bộ dữ liệu.
+	
+	\newpage
+	\section{\centering CHƯƠNG 4: HUẤN LUYỆN MÔ HÌNH SVM: QUY TRÌNH VÀ KIỂM TRA TÍNH HIỆU QUẢ}
+	\subsection{4.1. Quy trình huấn luyện}
+	\hspace{0.5cm}
+	Quy trình huấn luyện được triển khai trong \texttt{train.py} theo các bước:
+	\begin{enumerate}
+		\item Tải bộ dữ liệu Iris từ \texttt{sklearn.datasets.load\_iris()}.
+		\item Tách ma trận đặc trưng $X$ và nhãn $y$.
+		\item Chia dữ liệu thành tập Train và Test theo tỷ lệ 80/20.
+		\item Sử dụng \texttt{random\_state=42} để kết quả chia dữ liệu có thể tái lập.
+		\item Sử dụng \texttt{stratify=y} để duy trì tỷ lệ ba lớp trong cả hai tập.
+		\item Lặp qua bốn Kernel Linear, RBF, Polynomial và Sigmoid.
+		\item Huấn luyện bằng \texttt{SVC} của scikit-learn.
+		\item Dự đoán trên tập kiểm thử.
+		\item Tính Accuracy, Macro Precision, Macro Recall, Macro F1 và Confusion Matrix.
+		\item Đếm Support Vectors và đo thời gian huấn luyện, thời gian dự đoán.
+		\item Lưu mô hình bằng joblib và lưu kết quả vào \texttt{metrics.json}, \texttt{weights.json}.
+	\end{enumerate}
+	
+	\subsection{4.2. Cấu hình bốn mô hình}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Cấu hình các mô hình SVM trong dự án}
+		\label{tab:svmconfig}
+		\small
+		\begin{tabular}{lcccccc}
+			\toprule
+			\textbf{Kernel} & $C$ & $\gamma$ & $d$ & \texttt{coef0} & \textbf{File mô hình}\\
+			\midrule
+		Linear & 1.0 & -- & -- & -- & \texttt{svm\_linear.pkl}\\
+		RBF & 1.0 & scale & -- & -- & \texttt{svm\_rbf.pkl}\\
+		Polynomial & 1.0 & scale & 3 & 1.0 & \texttt{svm\_poly.pkl}\\
+		Sigmoid & 1.0 & scale & -- & 0.0 & \texttt{svm\_sigmoid.pkl}\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{4.3. Kết quả đánh giá thực tế}
+	\hspace{0.5cm}
+	Các kết quả dưới đây lấy trực tiếp từ \texttt{metrics.json} được lưu trong repository sau lần huấn luyện. Tập kiểm thử gồm 30 mẫu, tức 10 mẫu cho mỗi lớp.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Kết quả đánh giá bốn Kernel SVM trên tập kiểm thử}
+		\label{tab:metrics}
+		\small
+		\begin{tabular}{lrrrrrrr}
+			\toprule
+			\textbf{Kernel} & \textbf{Acc.} & \textbf{Prec.} & \textbf{Recall} & \textbf{F1} & \textbf{SV} & \textbf{Train (ms)} & \textbf{Pred (ms)}\\
+			\midrule
+			Linear & 1.0000 & 1.0000 & 1.0000 & 1.0000 & 23 & 1.36 & 0.22\\
+			RBF & 0.9667 & 0.9697 & 0.9667 & 0.9666 & 49 & 1.13 & 0.22\\
+			Polynomial & 0.9667 & 0.9697 & 0.9667 & 0.9666 & 16 & 0.89 & 0.14\\
+			Sigmoid & 0.1000 & 0.0500 & 0.1000 & 0.0667 & 120 & 1.68 & 0.30\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{4.4. Biểu đồ so sánh Accuracy}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				ybar,
+				bar width=0.9cm,
+				width=13cm,
+				height=8cm,
+				ymin=0,
+				ymax=1.1,
+				ylabel={Accuracy},
+				symbolic x coords={Linear,RBF,Polynomial,Sigmoid},
+				xtick=data,
+				nodes near coords,
+				nodes near coords style={font=\small},
+				ytick={0,0.2,0.4,0.6,0.8,1.0},
+				grid=major,
+				]
+				\addplot coordinates {(Linear,1.0) (RBF,0.9667) (Polynomial,0.9667) (Sigmoid,0.1)};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{So sánh Accuracy của bốn mô hình SVM}
+		\label{fig:accuracy}
+	\end{figure}
+	
+	Kết quả cho thấy ba mô hình Linear, RBF và Polynomial hoạt động tốt trên phép chia dữ liệu hiện tại, trong khi Sigmoid cho kết quả thấp. Điều này không có nghĩa một Kernel luôn tốt hoặc xấu trong mọi bài toán; kết quả phụ thuộc vào dữ liệu, siêu tham số và cách tiền xử lý. Trong phạm vi thí nghiệm này, cấu hình Sigmoid với $C=1.0$, $\gamma=\texttt{scale}$ và \texttt{coef0}=0 không phù hợp với phép chia dữ liệu đang sử dụng.
+	
+	\subsection{4.5. Confusion Matrix}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Confusion Matrix của Kernel Linear}
+		\label{tab:cmlinear}
+		\begin{tabular}{lrrr}
+			\toprule
+			\textbf{Thực tế / Dự đoán} & \textbf{Setosa} & \textbf{Versicolor} & \textbf{Virginica}\\
+			\midrule
+			Setosa & 10 & 0 & 0\\
+			Versicolor & 0 & 10 & 0\\
+			Virginica & 0 & 0 & 10\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Confusion Matrix của Kernel RBF và Polynomial}
+		\label{tab:cmrbfpoly}
+		\begin{tabular}{lrrr}
+			\toprule
+			\textbf{Thực tế / Dự đoán} & \textbf{Setosa} & \textbf{Versicolor} & \textbf{Virginica}\\
+			\midrule
+			Setosa & 10 & 0 & 0\\
+			Versicolor & 0 & 9 & 1\\
+			Virginica & 0 & 0 & 10\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	RBF và Polynomial đều có một mẫu Versicolor bị dự đoán thành Virginica. Không có mẫu Setosa bị nhầm trong phép thử này. Với 30 mẫu kiểm thử, một lỗi tương ứng Accuracy $=29/30\approx0.9667$.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Confusion Matrix của Kernel Sigmoid}
+		\label{tab:cmsigmoid}
+		\begin{tabular}{lrrr}
+			\toprule
+			\textbf{Thực tế / Dự đoán} & \textbf{Setosa} & \textbf{Versicolor} & \textbf{Virginica}\\
+			\midrule
+			Setosa & 3 & 0 & 7\\
+			Versicolor & 7 & 0 & 3\\
+			Virginica & 10 & 0 & 0\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	Ma trận của Sigmoid cho thấy mô hình không dự đoán được lớp Versicolor trong tập kiểm thử và có xu hướng đẩy nhiều mẫu về Setosa hoặc Virginica. Đây là một dấu hiệu rõ ràng cho thấy cấu hình hiện tại chưa phù hợp với dữ liệu.
+	
+	\subsection{4.6. Support Vector và thời gian thực thi}
+	\hspace{0.5cm}
+	Số Support Vector của bốn mô hình lần lượt là 23, 49, 16 và 120. Sigmoid sử dụng 120 Support Vector, tức toàn bộ số mẫu của tập huấn luyện, cho thấy nghiệm của mô hình ở cấu hình này phụ thuộc vào rất nhiều điểm dữ liệu.
+	
+	Thời gian huấn luyện đều ở mức mili-giây đối với bộ dữ liệu nhỏ. Polynomial có thời gian huấn luyện 0.89 ms và thời gian dự đoán 0.14 ms trong lần chạy được lưu. Các số đo này có thể thay đổi theo phần cứng, môi trường Python và tải hệ thống, do đó không nên xem là hằng số tuyệt đối.
+	
+	\subsection{4.7. Kiểm tra tính hiệu quả}
+	\hspace{0.5cm}
+	Việc kiểm tra tính hiệu quả được thực hiện theo nhiều góc độ:
+	\begin{itemize}
+		\item \textbf{Hiệu quả phân loại:} sử dụng Accuracy, Precision, Recall và F1-score.
+		\item \textbf{Khả năng nhận diện từng lớp:} sử dụng Confusion Matrix.
+		\item \textbf{Độ phức tạp nghiệm:} quan sát số lượng Support Vector.
+		\item \textbf{Hiệu quả tính toán:} đo thời gian huấn luyện và dự đoán.
+		\item \textbf{Khả năng vận hành:} sau khi huấn luyện, mô hình được lưu thành file và nạp vào API để phục vụ nhiều yêu cầu dự đoán.
+	\end{itemize}
+	
+	\subsection{4.8. Nhận xét kết quả thực nghiệm}
+	\hspace{0.5cm}
+	Từ kết quả thực nghiệm trên tập kiểm thử gồm 30 mẫu, có thể thấy hiệu quả của bốn Kernel SVM có sự khác biệt rõ rệt. Các mô hình được huấn luyện trên cùng một tập dữ liệu, cùng cách chia dữ liệu theo tỷ lệ 80/20 và cùng giá trị $C=1.0$, qua đó tạo điều kiện thuận lợi cho việc so sánh.
+	
+	Kernel Linear đạt Accuracy, Precision, Recall và F1 đều bằng $1.0000$. Ma trận nhầm lẫn cho thấy cả 30 mẫu trong tập kiểm thử đều được phân loại chính xác. Mô hình sử dụng 23 Support Vector, thời gian huấn luyện là $1.36$ ms và thời gian dự đoán là $0.22$ ms.
+	
+	Kernel RBF đạt Accuracy $0.9667$, Precision $0.9697$, Recall $0.9667$ và F1 $0.9666$. Ma trận nhầm lẫn cho thấy có một mẫu thuộc lớp Versicolor bị dự đoán thành lớp Virginica. Mô hình sử dụng 49 Support Vector, thời gian huấn luyện là $1.13$ ms và thời gian dự đoán là $0.22$ ms.
+	
+	Kernel Polynomial cũng đạt Accuracy $0.9667$, Precision $0.9697$, Recall $0.9667$ và F1 $0.9666$. Tương tự Kernel RBF, mô hình có một mẫu thuộc lớp Versicolor bị phân loại nhầm sang lớp Virginica. Tuy nhiên, số lượng Support Vector của Kernel Polynomial chỉ là 16, thấp hơn so với RBF. Thời gian huấn luyện là $0.89$ ms và thời gian dự đoán là $0.14$ ms.
+	
+	Kernel Sigmoid cho kết quả thấp hơn đáng kể với Accuracy $0.1000$, Precision $0.0500$, Recall $0.1000$ và F1 $0.0667$. Mô hình sử dụng 120 Support Vector, tương ứng với toàn bộ số mẫu của tập huấn luyện. Thời gian huấn luyện là $1.68$ ms và thời gian dự đoán là $0.30$ ms. Kết quả này cho thấy cấu hình Kernel Sigmoid được sử dụng trong thí nghiệm chưa phù hợp với dữ liệu Iris và các siêu tham số hiện tại.
+	
+	Nhìn chung, thí nghiệm cho thấy hiệu quả của SVM phụ thuộc đáng kể vào việc lựa chọn Kernel và các siêu tham số đi kèm. Với cùng một tập dữ liệu và cùng phương pháp chia Train/Test, bốn Kernel cho các kết quả khác nhau về độ chính xác, số lượng Support Vector cũng như thời gian tính toán. Do đó, việc thử nghiệm nhiều Kernel là cần thiết để đánh giá mức độ phù hợp của mô hình đối với một bài toán phân loại cụ thể.
+	
+	Trong phạm vi của đề tài, kết quả thực nghiệm được sử dụng để minh họa và so sánh trực tiếp bốn Kernel Linear, RBF, Polynomial và Sigmoid trên bộ dữ liệu Iris. Các kết quả được trình bày trong báo cáo được lấy từ tệp \texttt{metrics.json} được sinh ra sau quá trình huấn luyện mô hình.
+	
+	\newpage
+	\section{\centering CHƯƠNG 5: CÁC CÔNG NGHỆ SỬ DỤNG ĐỂ TRIỂN KHAI TRỰC TUYẾN}
+	\subsection{5.1. Python và scikit-learn}
+	\hspace{0.5cm}
+	Python được sử dụng cho phần huấn luyện mô hình. Thư viện scikit-learn cung cấp \texttt{SVC}, \texttt{train\_test\_split} và các hàm đánh giá. Đây là lớp tính toán chính tạo ra bốn mô hình SVM.
+	
+	\subsection{5.2. Joblib}
+	\hspace{0.5cm}
+	Sau khi huấn luyện, mô hình được lưu bằng \texttt{joblib.dump}. Mỗi Kernel có một file riêng. Khi API khởi động, các file này được tải vào RAM bằng \texttt{joblib.load}. Cách làm này tránh phải huấn luyện lại mỗi khi có một yêu cầu dự đoán.
+	
+	\subsection{5.3. FastAPI}
+	\hspace{0.5cm}
+	FastAPI được sử dụng để xây dựng API phục vụ mô hình. Ứng dụng khai báo tên ``Iris Multi-Kernel SVM API'', phiên bản 2.0.0 và hỗ trợ bốn Kernel.
+	
+	API chính gồm:
+	\begin{itemize}
+		\item \texttt{GET /}: kiểm tra API đang hoạt động và trả về danh sách Kernel.
+		\item \texttt{GET /health}: kiểm tra tình trạng dịch vụ và số mô hình đã được tải.
+		\item \texttt{GET /metrics}: trả về các kết quả đánh giá đã lưu.
+		\item \texttt{POST /predict}: nhận bốn đặc trưng và Kernel, sau đó trả về lớp dự đoán và thời gian thực thi.
+	\end{itemize}
+	
+	\subsection{5.4. Pydantic}
+	\hspace{0.5cm}
+	Dữ liệu đầu vào API được mô tả bằng lớp \texttt{IrisInput}. Bốn đặc trưng đều có kiểu số thực và Kernel được giới hạn bởi \texttt{Literal} vào bốn giá trị \texttt{linear}, \texttt{rbf}, \texttt{poly}, \texttt{sigmoid}. Điều này giúp cấu trúc dữ liệu đầu vào rõ ràng và giảm nguy cơ truyền giá trị Kernel không hợp lệ.
+	
+	\subsection{5.5. React và Vite}
+	\hspace{0.5cm}
+	Frontend được tổ chức bằng React với nhiều component. Vite được dùng để build ứng dụng. Các phân hệ chính được khai báo trong \texttt{App.tsx} và được chuyển đổi bằng trạng thái \texttt{activeTab}, vì vậy hệ thống hoạt động theo mô hình Single Page Application.
+	
+	\subsection{5.6. Node.js và Express}
+	\hspace{0.5cm}
+	Repository có \texttt{server.ts} sử dụng Express để phục vụ ứng dụng và tích hợp middleware của Vite trong môi trường phát triển. Khi chạy production, server phục vụ thư mục \texttt{dist}. Server cũng có endpoint \texttt{/health} và \texttt{/metrics} cho lớp frontend.
+	
+	\subsection{5.7. Supabase}
+	\hspace{0.5cm}
+	Dự án có tích hợp Supabase ở lớp dữ liệu ứng dụng. Schema hiện có các bảng như \texttt{app\_users}, \texttt{profiles}, \texttt{user\_preferences}, \texttt{prediction\_history}, \texttt{experiment\_history} và \texttt{app\_content}. Mục tiêu là lưu tài khoản, cấu hình, lịch sử dự đoán và lịch sử thí nghiệm.
+	
+	\subsection{5.8. Render}
+	\hspace{0.5cm}
+	Cấu hình \texttt{render.yaml} của frontend khai báo một Web Service chạy Node, sử dụng:
+	\begin{itemize}
+		\item Build Command: \texttt{npm install \&\& npm run build}.
+		\item Start Command: \texttt{npm start}.
+		\item Health Check Path: \texttt{/health}.
+		\item Auto Deploy Trigger: commit.
+	\end{itemize}
+	
+	\subsection{5.9. Kiến trúc triển khai thực tế}
+	\hspace{0.5cm}
+	Frontend trong \texttt{src/utils/api.ts} gọi API FastAPI tại endpoint Render được cấu hình sẵn. Khi API từ xa phản hồi thành công, kết quả được sử dụng. Nếu API không phản hồi trong thời gian chờ khoảng 4.5 giây hoặc xảy ra lỗi mạng, frontend chuyển sang hàm dự đoán cục bộ. Cơ chế này giúp giao diện vẫn có thể hoạt động trong tình huống API từ xa đang cold start hoặc tạm thời không truy cập được.
+	
+	\newpage
+	\section{\centering CHƯƠNG 6: CHI TIẾT QUY TRÌNH TRIỂN KHAI TRỰC TUYẾN VÀ VẬN HÀNH}
+	\subsection{Giai đoạn 1 -- Huấn luyện và tạo artifact}
+	\hspace{0.5cm}
+	Trước khi triển khai, chạy chương trình huấn luyện để tạo bốn file mô hình:
+	\begin{enumerate}
+		\item \texttt{svm\_linear.pkl}
+		\item \texttt{svm\_rbf.pkl}
+		\item \texttt{svm\_poly.pkl}
+		\item \texttt{svm\_sigmoid.pkl}
+	\end{enumerate}
+	
+	Đồng thời tạo:
+	\begin{itemize}
+		\item \texttt{metrics.json}: kết quả Accuracy, Precision, Recall, F1, Support Vector, thời gian huấn luyện và ma trận nhầm lẫn.
+		\item \texttt{weights.json}: thông tin mở rộng gồm cấu hình tham số, dữ liệu, thời gian huấn luyện và metrics.
+	\end{itemize}
+	
+	\subsection{Giai đoạn 2 -- Kiểm tra API cục bộ}
+	\hspace{0.5cm}
+	Sau khi tạo artifact, API cần được chạy cục bộ và kiểm tra các endpoint. Ví dụ một yêu cầu dự đoán có dạng:
+	\begin{lstlisting}[language=Python,caption={Dữ liệu JSON gửi đến endpoint /predict}]
+{
+	"sepal_length": 5.1,
+	"sepal_width": 3.5,
+	"petal_length": 1.4,
+	"petal_width": 0.2,
+	"kernel": "linear"
+}
+	\end{lstlisting}
+	
+	API trả về thông tin Kernel được sử dụng, mã lớp, tên loài, thời gian thực thi và các đặc trưng đầu vào. Với mẫu trên, lớp dự đoán tương ứng là \textit{setosa} theo mô hình Linear trong bộ mô hình đã huấn luyện.
+	
+	\subsection{Giai đoạn 3 -- Kiểm tra Health Check}
+	\hspace{0.5cm}
+	Endpoint \texttt{/health} có vai trò quan trọng khi triển khai. Một phản hồi hợp lệ chứa trạng thái \texttt{healthy}, danh sách Kernel đã được nạp và tổng số mô hình. Điều này cho phép nền tảng triển khai hoặc người quản trị phát hiện trường hợp server hoạt động nhưng mô hình chưa được tải đầy đủ.
+	
+	\subsection{Giai đoạn 4 -- Đóng gói frontend}
+	\hspace{0.5cm}
+	Frontend sử dụng Node.js với các script:
+	\begin{itemize}
+		\item \texttt{npm run dev}: chạy môi trường phát triển.
+		\item \texttt{npm run build}: build ứng dụng Vite.
+		\item \texttt{npm start}: chạy server Express/tsx.
+		\item \texttt{npm run lint}: kiểm tra TypeScript.
+	\end{itemize}
+	
+	\subsection{Giai đoạn 5 -- Đẩy repository và triển khai Render}
+	\hspace{0.5cm}
+	Quy trình vận hành triển khai frontend có thể thực hiện theo trình tự:
+	\begin{enumerate}
+		\item Kiểm tra code và artifact cần thiết trong repository.
+		\item Commit thay đổi.
+		\item Push lên nhánh repository được Render theo dõi.
+		\item Render thực hiện build theo \texttt{npm install \&\& npm run build}.
+		\item Render khởi động bằng \texttt{npm start}.
+		\item Render kiểm tra endpoint \texttt{/health}.
+		\item Sau khi service sẵn sàng, người dùng truy cập địa chỉ web được Render cung cấp.
+	\end{enumerate}
+	
+	\subsection{Giai đoạn 6 -- Vận hành sau triển khai}
+	\hspace{0.5cm}
+	Trong quá trình vận hành, cần kiểm tra bốn nhóm vấn đề:
+	\begin{enumerate}
+		\item \textbf{Khả dụng:} trang web có tải được hay không.
+		\item \textbf{API:} endpoint dự đoán có trả về JSON đúng cấu trúc hay không.
+		\item \textbf{Mô hình:} bốn file model có được tải và Kernel có đúng với yêu cầu không.
+		\item \textbf{Dữ liệu:} metrics và lịch sử có được ghi nhận theo thiết kế hay không.
+	\end{enumerate}
+	
+	\subsection{Luồng một yêu cầu dự đoán}
+	\hspace{0.5cm}
+	Luồng xử lý có thể mô tả như sau:
+	\begin{multline*}
+		\text{Người dùng nhập dữ liệu}
+		\rightarrow
+		\text{React tạo JSON}
+		\rightarrow
+		\text{POST /predict}
+		\\ 
+		\rightarrow
+		\text{FastAPI chọn Kernel}
+		\rightarrow
+		\text{SVM.predict()}
+		\rightarrow
+		\text{JSON kết quả}
+		\rightarrow
+		\text{React hiển thị kết quả}
+	\end{multline*}
+	
+	Trong trường hợp API từ xa không phản hồi trong khoảng thời gian timeout, frontend gọi mô hình SVM cục bộ thông qua \texttt{predictIrisLocally}. Đây là cơ chế dự phòng nhằm tăng tính liên tục của trải nghiệm người dùng.
+	
+	\subsection{Lưu ý về bảo mật và vận hành}
+	\hspace{0.5cm}
+	Schema Supabase hiện tại trong repository có thiết kế đơn giản hóa đăng nhập, lưu trường mật khẩu trực tiếp và tắt Row Level Security. Đây là cấu hình phù hợp cho mục đích học tập hoặc thử nghiệm nội bộ nhưng không nên được xem là cấu hình bảo mật cho hệ thống production. Khi triển khai thực tế cần sử dụng hệ thống xác thực chuẩn, không lưu mật khẩu dạng plaintext, bật RLS và giới hạn quyền truy cập theo người dùng.
+	
+	Ngoài ra, các khóa môi trường như \url{VITE_SUPABASE_URL} và \url{VITE_SUPABASE_PUBLISHABLE_KEY} phải được cấu hình qua biến môi trường; không nên đưa secret server-side vào mã nguồn frontend.
+	
+	\newpage
+	\section{\centering CHƯƠNG 7: DEMO VÀ HƯỚNG DẪN SỬ DỤNG WEB CHO NGƯỜI DÙNG}
+	\subsection{7.1. Tổng quan quy trình truy cập và Giao diện chính}
+	\hspace{0.5cm}
+	Hệ thống được thiết kế với giao diện hiện đại, tập trung vào trải nghiệm người dùng, giúp tối ưu hóa quy trình từ khâu xác thực đến khâu sử dụng các tính năng phân tích chi tiết.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh1.jpg"}
+		\caption{Giao diện cổng đăng nhập của Nền tảng Iris SVM}
+	\end{figure}
+	Hình 5 minh họa \textbf{Cổng đăng nhập}, điểm khởi đầu của hành trình khám phá "Khu vườn Iris". Tại đây, sức mạnh của thuật toán Học máy SVM được tích hợp ngầm để phân loại chính xác 3 loài hoa Diên vĩ dựa trên bộ dữ liệu kinh điển của Ronald Fisher. Để đảm bảo an toàn dữ liệu và cá nhân hóa trải nghiệm, người dùng cần thực hiện Đăng ký hoặc Đăng nhập. Hệ thống sử dụng Supabase ở lớp dữ liệu ứng dụng để hỗ trợ quản lý tài khoản, cấu hình người dùng, lịch sử dự đoán và lịch sử thí nghiệm. Trong phiên bản hiện tại, cơ chế này chủ yếu phục vụ mục đích học tập và minh họa kiến trúc hệ thống; các yêu cầu bảo mật production cần được bổ sung trước khi triển khai thực tế.
+
+	Sau khi xác thực tài khoản thành công, hệ thống sẽ tự động chuyển hướng người dùng đến \textbf{Trang chào mừng và giới thiệu}.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh2.jpg"}
+		\caption{Giao diện điều hướng chính và Thông tin tác giả}
+	\end{figure}
+	
+	Giao diện chính là \textbf{Trang chủ}, được thiết kế tối giản nhưng ấn tượng với hình ảnh hoa Diên vĩ làm nền và slogan "Khám phá ranh giới phân loại bằng SVM". Tại đây, người dùng có thể thực hiện hai thao tác chính: sử dụng thanh điều hướng phía trên để truy cập nhanh các phân hệ chức năng, hoặc cuộn trang xuống để bắt đầu tìm hiểu về bộ dữ liệu.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh3.jpg"}
+		\caption{Khám phá ranh giới phân loại bằng SVM}
+	\end{figure}
+	
+	Khi người dùng cuộn chuột xuống phía dưới, hệ thống sẽ hiển thị phần giới thiệu chi tiết về bộ dữ liệu kinh điển của Ronald Fisher. Tại đây, ba loài hoa Iris chính (Setosa, Versicolor, và Virginica) được trực quan hóa thông qua các thẻ \textit{card} thông tin riêng biệt. Mỗi thẻ cung cấp hình ảnh thực tế, tên khoa học và thông tin tóm tắt về đặc trưng kích thước cánh hoa đặc trưng của từng loài.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh4.jpg"}
+		\caption{Khám phá 3 loài hoa Iris}
+	\end{figure}
+	
+	Để tìm hiểu sâu hơn về đặc điểm hình thái của một loài cụ thể, người dùng có thể nhấn vào nút \textbf{"Chi tiết"} có biểu tượng mũi tên xanh trên thẻ tương ứng. Ngay lập tức, hệ thống sẽ hiển thị một cửa sổ thông tin đầy đủ và chi tiết hơn (như hình minh họa 8), bao gồm các số liệu đo lường cụ thể về chiều dài/chiều rộng đài hoa, cánh hoa, giúp người dùng có cái nhìn tổng quan trước khi tiến hành các bước nhận diện tiếp theo.
+	
+	Và sau khi bấm \textit{Bắt đầu Nhận diện \& Vẽ siêu phẳng SVM }, hệ thống hiển thị thanh điều hướng với tám phân hệ:
+	\begin{enumerate}
+		\item Nhận diện.
+		\item Đoán hoa
+		\item Phân tích dữ liệu.
+		\item Model Benchmark
+		\item Lịch sử nhận diện.
+		\item Thí nghiệm toàn hệ thống (Nếu là admin).
+		\item Quản trị \& Thống kê (Nếu là admin).
+	\end{enumerate}
+	
+	Giao diện sử dụng cơ chế xác minh phiên bằng SessionStorage trước khi người dùng truy cập đầy đủ hệ thống. Sau khi xác minh, người dùng có thể chuyển đổi giữa các phân hệ mà không cần tải lại toàn bộ trang.
+	
+	\subsubsection{7.1.1. Chức năng 1 -- Nhận diện \& Huấn luyện SVM}
+	\hspace{0.5cm}
+	Đây là chức năng chính dành cho người dùng phổ thông.
+	
+	\textbf{Bước 1: Nhập thông số.} Người dùng nhập bốn giá trị:
+	\begin{itemize}
+		\item Sepal Length, khoảng giao diện từ 4 đến 8 cm.
+		\item Sepal Width, khoảng giao diện từ 2 đến 4.5 cm.
+		\item Petal Length, khoảng giao diện từ 1 đến 7 cm.
+		\item Petal Width, khoảng giao diện từ 0.1 đến 2.5 cm.
+	\end{itemize}
+	
+	Mỗi đặc trưng có cả thanh kéo và ô nhập số, giúp người dùng có thể thao tác nhanh hoặc nhập chính xác.
+	
+	\textbf{Bước 2: Nhấn ``Phân loại bằng SVM''.} Frontend gửi dữ liệu đến API. Kết quả được chuẩn hóa về một trong ba nhãn: Setosa, Versicolor hoặc Virginica.
+	
+	\textbf{Bước 3: Xem kết quả.} Hệ thống hiển thị tên loài, độ tin cậy được giao diện tính/nhận, ảnh minh họa và bốn thông số đầu vào.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{"Ảnh/anh5.jpg"}
+		\caption{Chức năng Nhận diện}
+	\end{figure}
+	
+	
+	\textbf{Bước 4: Kiểm tra trực quan.} Bên dưới kết quả có biểu đồ Petal Length--Petal Width và vị trí của mẫu hiện tại. Người dùng có thể đối chiếu vị trí mẫu với vùng phân bố dữ liệu.
+	
+	\textbf{Bước 5: Đặt lại.} Nút ``Đặt lại'' đưa các thông số về mẫu mặc định 5.1, 3.5, 1.4, 0.2 và kết quả Setosa.
+	
+	\textbf{Ví dụ Demo 1 -- Mẫu Setosa}
+	
+	Sử dụng:
+	\begin{center}
+		\begin{tabular}{lc}
+			\toprule
+			Sepal Length & 5.1 cm\\
+			Sepal Width & 3.5 cm\\
+			Petal Length & 1.4 cm\\
+			Petal Width & 0.2 cm\\
+			Kernel API & Linear\\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	Với mô hình Linear được huấn luyện trong dự án, mẫu được phân loại thành \textit{Iris setosa}. Đây cũng là mẫu mặc định được sử dụng trong nhiều thành phần của hệ thống.
+	
+	
+	\textbf{Bước 6: Cấu hình tham số mô hình}. Người dùng có thể điều chỉnh các tham số quan trọng của mô hình SVM tại khu vực cấu hình RBF Kernel:
+	
+	Model / Kernel: Ở đây, đang chọn RBF Kernel (Radial Basis Function - phi tuyến) để xử lý các ranh giới phân loại phức tạp.
+	
+	Trục X/Y (Chiều 2D): Do ta đang trực quan 2D, ta cần chọn 2 đặc trưng chính để biểu diễn trên trục tọa độ. Ở đây, chọn 'Petal Length' cho trục X và 'Petal Width' cho trục Y, đây là hai đặc trưng có khả năng phân loại tốt nhất.
+	
+	C (Penalty): Tham số điều chỉnh lỗi phân loại. Đang đặt giá trị 1.0 làm mặc định.
+	
+	Gamma: Tham số quyết định mức độ ảnh hưởng của một điểm dữ liệu đơn lẻ. Đặt giá trị mặc định là 0.5.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh7.jpg"}
+		\caption{Biểu đồ tương tác}
+	\end{figure}
+	
+	\textbf{Bước 7: Huấn luyện và Trực quan hóa Ranh giới quyết định}. Sau khi đã cấu hình xong, bước quan trọng nhất là huấn luyện mô hình. Người dùng chỉ cần nhấn nút 'Huấn luyện \& Vẽ Decision Boundary'.
+	
+	Ngay lập tức, hệ thống sẽ chạy thuật toán SVM. Kết quả không chỉ là mô hình được huấn luyện mà còn là một biểu đồ trực quan hóa Decision Boundary cực kỳ rõ ràng trên nền dark mode:
+	\begin{itemize}
+		\item Vùng màu xanh lá cây tương ứng với ranh giới phân loại loài Setosa
+		\item Vùng màu cam tương ứng với ranh giới phân loại loài Versicolor
+		\item Vùng màu tím tương ứng với ranh giới phân loại loài Virginica
+	\end{itemize}
+	
+	Các điểm Support Vectors quan trọng được đánh dấu bằng hình ngôi sao vàng
+	
+	Điểm đặc biệt và tương tác cao nhất của phân hệ này chính là khả năng dự đoán trong thời gian thực. Bạn có thể thấy một con trỏ đỏ trên biểu đồ, được gọi là 'Điểm đang chọn'.
+	
+	Người dùng có thể nhấp chuột hoặc kéo trực tiếp con trỏ này trên bảng. Khi con trỏ di chuyển, giá trị tọa độ (Petal Length và Petal Width) sẽ thay đổi tương ứng. Tại vị trí hiện tại (Petal Length: 3.1 cm, Petal Width: 1.9 cm), hệ thống ngay lập tức dự đoán điểm này thuộc loài 'Iris Versicolor' và hiển thị kết quả này một cách rõ ràng dưới bảng điều khiển.
+	
+	Chức năng này giúp người dùng không chỉ học về lý thuyết SVM mà còn hiểu rõ \textit{cơ chế} của ranh giới quyết định và cách mô hình \textit{suy luận} cho một dữ liệu mới
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh8.jpg"}
+		\caption{Kết quả biểu đồ tương tác}
+	\end{figure}
+	
+	
+	
+	\subsubsection{7.1.2. Chức năng 2 -- Đoán hoa}
+	\hspace{0.5cm}
+	Phân hệ ``Bạn đoán trước AI'' được thiết kế theo hướng tương tác. Hệ thống tạo một mẫu với bốn đặc trưng, sau đó yêu cầu người dùng chọn trước một trong ba loài. Khi người dùng xác nhận, hệ thống thực hiện dự đoán và so sánh với lựa chọn.
+	
+	Luồng sử dụng:
+	\begin{enumerate}
+		\item Mở ``Bạn đoán trước AI''.
+		\item Quan sát bốn thông số được hệ thống tạo.
+		\item Bước 1: Quan sát biểu đồ và chọn: Setosa, Versicolor hoặc Virginica.
+		\item Bước 2: Kiểm tra kết quả với AI (SVM).
+		\item Xem kết quả của SVM và trạng thái đúng/sai.
+		\item Nếu muốn, chuyển sang lượt mới để tiếp tục luyện khả năng đọc dữ liệu.
+	\end{enumerate}
+	
+	Server cũng có endpoint tạo mẫu ngẫu nhiên với các vùng khó khác nhau, trong đó có vùng biên giữa Versicolor và Virginica.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{"Ảnh/anh9.jpg"}
+		\caption{Thử thách "Bạn đoán trước"}
+	\end{figure}
+	
+	\subsubsection{7.1.3. Chức năng 3 -- Phân tích dữ liệu}
+	
+	Phân hệ ``Phân tích dữ liệu'' hỗ trợ các định dạng CSV, XLSX, XLS và TXT. Người dùng có thể tải một file chứa các đặc trưng Iris để hệ thống xử lý theo từng dòng.
+	
+	\textbf{Quy trình sử dụng:}
+	\begin{enumerate}
+		\item Chọn ``Phân tích dữ liệu''.
+		\item Chuẩn bị file có bốn cột đặc trưng tương ứng Sepal Length, Sepal Width, Petal Length và Petal Width.
+		\item Tải file lên giao diện.
+		\item Chọn chế độ phù hợp nếu file có hoặc không có nhãn thật.
+		\item Hệ thống phân loại từng mẫu.
+		\item Nếu có nhãn thật, hệ thống tính số mẫu đúng và Accuracy trên các dòng hợp lệ.
+		\item Người dùng có thể tải kết quả phân tích dưới dạng CSV.
+	\end{enumerate}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh10.jpg"}
+		\caption{Tải file cần dự đoán lên để phân tích dữ liệu}
+	\end{figure}
+	
+	Kết quả xuất gồm các trường như đặc trưng đầu vào, nhãn thật, dự đoán SVM, độ tin cậy và trạng thái kết quả.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh11.jpg"}
+		\caption{Kết quả bảng phân tích}
+	\end{figure}
+	
+	\subsubsection{7.1.4. Chức năng 4 -- Model Benchmark}
+	\hspace{0.5cm}
+	Trang Model Benchmark trình bày bảng so sánh các Kernel SVM với nhau. Mục tiêu của trang là cung cấp góc nhìn tổng quan về hiệu năng của thuật toán SVM và biểu đồ so sánh \textbf{Độ chính xác \& Thời gian huấn luyện}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{"Ảnh/anh14.jpg"}
+	\caption{Biểu đồ so sánh}
+	\end{figure}
+	
+	\subsubsection{7.1.5. Chức năng 5 -- Lịch sử nhận diện}
+	
+	Mỗi lần nhận diện có thể được lưu vào lịch sử cùng thời gian, bốn thông số, kết quả, độ tin cậy và phương thức thực hiện. Người dùng có thể:
+	\begin{itemize}
+		\item Xem toàn bộ lịch sử.
+		\item Xóa một bản ghi.
+		\item Xóa toàn bộ lịch sử.
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh12.jpg"}
+		\caption{Lịch sử}
+	\end{figure}
+	
+	\subsubsection{7.1.6. Chức năng 6 -- Lịch sử thí nghiệm toàn hệ thống (Dành cho quyền quản trị viên)}
+	\hspace{0.5cm}
+	Theo dõi toàn bộ các lần huấn luyện SVM từ tất cả người dùng trong hệ thống. Bấm vào tên tài khoản để xem chi tiết các thao tác.
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{"Ảnh/anh13.jpg"}
+		\caption{Lịch sử thí nghiệm toàn hệ thống}
+	\end{figure}
+	
+	\subsubsection{7.1.7. Chức năng 7 -- Thống kê hoạt động toàn hệ thống (Dành cho quyền quản trị viên)}
+		\hspace{0.5cm}
+		Báo cáo số liệu người dùng, tần suất sử dụng các hàm Kernel và danh sách hồ sơ thành viên.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.85\textwidth]{"Ảnh/anh15.jpg"}
+			\caption{Thống kê toàn hệ thống}
+		\end{figure}
+	
+	\subsection{7.2. Quy trình sử dụng đề xuất cho người mới}
+	
+	Đối với người dùng lần đầu, có thể thực hiện theo trình tự:
+	\begin{enumerate}
+		\item Dùng ``Bạn đoán trước'' để kiểm tra trực giác trước.
+		\item Vào ``Nhận diện'' và thử mẫu mặc định.
+		\item Thay đổi Petal Length và Petal Width để quan sát sự thay đổi dự đoán.
+		\item Vào ``Huấn luyện'' để hiểu phân bố ba lớp.
+		\item Vào ``Trực quan hóa biểu đồ'' và thay đổi Kernel.
+		\item Quan sát Accuracy và Confusion Matrix.
+		\item Dùng ``Phân tích dữ liệu'' nếu muốn xử lý nhiều mẫu từ file.
+		\item Vào ``Model Benchmark'' để so sánh thời gian chạy và độ chính xác của các Kernel.
+		\item Xem ``Lịch sử'' để kiểm tra các lần nhận diện trước đó.
+	\end{enumerate}
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{\centering KẾT LUẬN}
+	\hspace{0.5cm}
+	Đề tài đã xây dựng được một hệ thống tương đối hoàn chỉnh cho bài toán phân loại hoa Iris bằng Support Vector Machine, từ lý thuyết thuật toán đến triển khai ứng dụng web. Về mặt học máy, hệ thống sử dụng bốn Kernel Linear, RBF, Polynomial và Sigmoid, cho phép quan sát rõ ảnh hưởng của hàm Kernel đến ranh giới quyết định và chất lượng phân loại.
+	
+	Trên phép chia dữ liệu gồm 120 mẫu huấn luyện và 30 mẫu kiểm thử, Kernel Linear đạt Accuracy 100\%, RBF và Polynomial đạt 96.67\%, trong khi Sigmoid đạt 10\%. Những kết quả này cho thấy cùng một thuật toán SVM nhưng lựa chọn Kernel và cấu hình tham số có thể tạo ra sự khác biệt rất lớn về kết quả. Việc sử dụng Confusion Matrix, Precision, Recall, F1-score, số Support Vector và thời gian thực thi giúp đánh giá mô hình từ nhiều góc độ thay vì chỉ dựa vào Accuracy.
+	
+	Về mặt kỹ thuật phần mềm, dự án đã kết nối được nhiều thành phần: Python/scikit-learn đảm nhiệm huấn luyện, joblib đóng gói mô hình, FastAPI cung cấp dịch vụ dự đoán, React/Vite xây dựng giao diện, Express hỗ trợ lớp server frontend và Render phục vụ triển khai trực tuyến. Giao diện không chỉ cung cấp chức năng dự đoán mà còn có trực quan hóa dữ liệu, Playground, thí nghiệm, benchmark, phân tích file và lịch sử, qua đó biến một mô hình học máy thành một sản phẩm có khả năng tương tác.
+	
+	Bên cạnh các kết quả đạt được, báo cáo cũng chỉ ra một số điểm cần hoàn thiện trước khi đưa hệ thống vào môi trường production, đặc biệt là chuẩn hóa dữ liệu, kiểm định chéo, tối ưu siêu tham số, đồng nhất số liệu benchmark và tăng cường bảo mật cho hệ thống tài khoản và cơ sở dữ liệu. Đây cũng là những hướng phát triển tự nhiên nếu tiếp tục mở rộng đề tài.
+	
+	Nhìn chung, dự án đáp ứng được mục tiêu chính là minh họa đầy đủ vòng đời của một bài toán học máy: \textbf{dữ liệu \textrightarrow{} mô hình \textrightarrow{} đánh giá \textrightarrow{} API \textrightarrow{} giao diện \textrightarrow{} triển khai trực tuyến \textrightarrow{} vận hành}. Đây là nền tảng phù hợp để tiếp tục nghiên cứu các mô hình phân loại khác và xây dựng các hệ thống AI có khả năng phục vụ người dùng thực tế.
+	
+	\newpage
+	\section{\centering PHỤ LỤC}
+	\appendix
+	
+	Các thành phần quan trọng của repository được tổng hợp như sau:
+	
+	\begin{table}[H]
+		\centering
+		\caption{Danh mục các tệp và thư mục chính trong dự án}
+		\label{tab:project_structure}
+		\small % Sử dụng font chữ nhỏ hơn một chút để bảng gọn gàng
+		\begin{tabular}{p{0.3\textwidth}p{0.6\textwidth}}
+			\toprule
+			\textbf{Tệp / thư mục} & \textbf{Vai trò}\\
+			\midrule
+			\texttt{train.py} & Huấn luyện bốn mô hình SVM và xuất metrics.\\
+			\texttt{app.py} & FastAPI phục vụ bốn mô hình đã lưu.\\
+			\texttt{svm\_linear.pkl} & Mô hình SVM Linear.\\
+			\texttt{svm\_rbf.pkl} & Mô hình SVM RBF.\\
+			\texttt{svm\_poly.pkl} & Mô hình SVM Polynomial.\\
+			\texttt{svm\_sigmoid.pkl} & Mô hình SVM Sigmoid.\\
+			\texttt{metrics.json} & Metrics thực nghiệm của bốn Kernel.\\
+			\texttt{weights.json} & Metrics mở rộng và metadata của mô hình.\\
+			\texttt{src/App.tsx} & Điều phối giao diện và chuyển đổi các phân hệ.\\
+			\texttt{src/components/} & Các trang/chức năng của frontend.\\
+			\texttt{src/utils/api.ts} & Gọi API dự đoán từ frontend và fallback cục bộ.\\
+			\texttt{src/utils/svmModel.ts} & Thành phần SVM cục bộ cho frontend.\\
+			\texttt{src/data/irisData.ts} & Dữ liệu Iris dùng cho trực quan hóa và mô hình phía client.\\
+			\texttt{server.ts} & Express server kết hợp Vite và endpoint phụ trợ.\\
+			\texttt{render.yaml} & Cấu hình Web Service trên Render.\\
+			\texttt{package.json} & Dependency và script của frontend/server.\\
+			\texttt{supabase\_schema.sql} & Schema cơ sở dữ liệu Supabase.\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	
+	\newpage
+	\section{\centering TÀI LIỆU THAM KHẢO}
+	\begin{thebibliography}{99}
+		\bibitem{cortes1995}
+		C. Cortes and V. Vapnik, ``Support-vector networks,'' \textit{Machine Learning}, vol. 20, pp. 273--297, 1995.
+		
+		\bibitem{fisher1936}
+		R. A. Fisher, ``The use of multiple measurements in taxonomic problems,'' \textit{Annals of Eugenics}, vol. 7, pp. 179--188, 1936.
+		
+		\bibitem{scikit}
+		F. Pedregosa et al., ``Scikit-learn: Machine Learning in Python,'' \textit{Journal of Machine Learning Research}, vol. 12, pp. 2825--2830, 2011.
+		
+		\bibitem{bishop}
+		C. M. Bishop, \textit{Pattern Recognition and Machine Learning}. Springer, 2006.
+		
+		\bibitem{fastapi}
+		FastAPI, \textit{FastAPI Documentation}, tài liệu tham khảo về xây dựng API bằng Python và Pydantic.
+		
+		\bibitem{react}
+		React, \textit{React Documentation}, tài liệu tham khảo về xây dựng giao diện người dùng.
+		
+		\bibitem{vite}
+		Vite, \textit{Vite Documentation}, tài liệu tham khảo về công cụ build frontend.
+		
+		\bibitem{render}
+		Render, \textit{Render Documentation}, tài liệu tham khảo về triển khai Web Service.
+		
+	\end{thebibliography}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
+

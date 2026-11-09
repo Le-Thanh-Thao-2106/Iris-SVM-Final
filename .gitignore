@@ -1,10 +1,22 @@
 node_modules/
+**/node_modules/
 .venv/
+**/.venv/
 __pycache__/
+**/__pycache__/
 *.py[cod]
-*$py.class
 .env
-.env.local
+.env.*
+!.env.example
+dist/
+**/dist/
 .DS_Store
 Thumbs.db
+*.log
+
+# LaTeX temporary files
+*.aux
+*.out
+*.synctex.gz
+*.toc
 *.log

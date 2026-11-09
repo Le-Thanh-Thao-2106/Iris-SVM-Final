@@ -1,0 +1,18 @@
+CHAY DU AN IRIS SVM TREN WINDOWS
+
+1) Terminal Python:
+cd backend\python-api
+.venv\Scripts\activate
+uvicorn app:app --reload --host 0.0.0.0 --port 8000
+
+2) Terminal Node (mo terminal moi tai thu muc goc):
+cd backend\node-api
+npm.cmd install
+npm.cmd run dev
+
+3) Terminal Frontend (mo terminal moi tai thu muc goc):
+cd frontend
+npm.cmd install
+npm.cmd run dev
+
+Mo http://localhost:3000
