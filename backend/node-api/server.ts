@@ -34,12 +34,42 @@ function randRange(min: number, max: number): number {
 }
 
 // ── API Endpoints ─────────────────────────────────────────────────────────────
-app.get('/health', (req, res) => {
+app.get('/health', async (req, res) => {
+  // Luôn trả 200 để Render health check không restart service Node khi Python đang ngủ.
+  // Trường python_api cho frontend biết Python SVM API có thật sự sẵn sàng hay không.
+  let pythonApi: 'online' | 'offline' = 'offline';
+  try {
+    const r = await fetch(`${SVM_API_URL}/health`, { signal: AbortSignal.timeout(3000) });
+    if (r.ok) pythonApi = 'online';
+  } catch (_) {}
   res.json({
     status: 'healthy',
+    python_api: pythonApi,
     available_kernels: AVAILABLE_KERNELS,
     total_models: AVAILABLE_KERNELS.length,
   });
+});
+
+// Chẩn đoán: Node đang gọi Python ở đâu và Python trả về gì.
+// Mở: https://<node-service>.onrender.com/debug-upstream
+app.get('/debug-upstream', async (req, res) => {
+  const info: Record<string, unknown> = {
+    SVM_API_URL_resolved: SVM_API_URL,
+    env_SVM_API_URL: process.env.SVM_API_URL || null,
+    env_SVM_API_HOST: process.env.SVM_API_HOST || null,
+  };
+  try {
+    const started = Date.now();
+    const r = await fetch(`${SVM_API_URL}/health`, { signal: AbortSignal.timeout(20000) });
+    const text = await r.text();
+    info.upstream_status = r.status;
+    info.upstream_ms = Date.now() - started;
+    info.upstream_content_type = r.headers.get('content-type');
+    info.upstream_body = text.slice(0, 300);
+  } catch (e) {
+    info.upstream_error = String(e);
+  }
+  res.json(info);
 });
 
 app.get('/metrics', async (req, res) => {
@@ -80,6 +110,7 @@ app.post('/train', async (req, res) => {
       body: JSON.stringify(req.body || {}),
     });
     const body = await response.text();
+    if (!response.ok) console.log('[proxy /train] upstream', SVM_API_URL, 'status', response.status, 'body:', body.slice(0, 200));
     const contentType = response.headers.get('content-type');
     if (contentType) res.setHeader('Content-Type', contentType);
     return res.status(response.status).send(body);
@@ -121,6 +152,7 @@ app.post('/predict', async (req, res) => {
     });
 
     const body = await response.text();
+    if (!response.ok) console.log('[proxy /predict] upstream', SVM_API_URL, 'status', response.status, 'body:', body.slice(0, 200));
     const contentType = response.headers.get('content-type');
     if (contentType) res.setHeader('Content-Type', contentType);
     return res.status(response.status).send(body);

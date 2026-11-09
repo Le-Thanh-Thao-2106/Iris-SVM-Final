@@ -1,21 +1,6 @@
+# Render Blueprint: 3 service (Python API -> Node API -> Static frontend)
+# Khi tạo Blueprint, Render sẽ hỏi 2 biến "sync: false" (điền URL của service trước đó).
 services:
-  - type: web
-    name: iris-svm-node-api
-    runtime: node
-    rootDir: backend/node-api
-    plan: free
-    buildCommand: npm install
-    startCommand: npm start
-    healthCheckPath: /health
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: SVM_API_HOST
-        fromService:
-          type: web
-          name: iris-svm-python-api
-          property: hostport
-
   - type: web
     name: iris-svm-python-api
     runtime: python
@@ -26,11 +11,27 @@ services:
     healthCheckPath: /health
 
   - type: web
+    name: iris-svm-node-api
+    runtime: node
+    rootDir: backend/node-api
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: SVM_API_URL
+        sync: false   # dien: https://<python-service>.onrender.com
+
+  - type: web
     name: iris-svm-frontend
     runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
+      - key: NODE_VERSION
+        value: 22
       - key: VITE_API_BASE_URL
-        value: https://iris-svm-node-api.onrender.com
+        sync: false   # dien: https://<node-service>.onrender.com
