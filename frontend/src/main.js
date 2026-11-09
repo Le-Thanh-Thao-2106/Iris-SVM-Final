@@ -457,9 +457,49 @@ window.resetForm = function() {
   window.setPreset(5.1, 3.5, 1.4, 0.2);
 };
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Gọi API, đọc body dạng text trước rồi mới parse JSON; tự retry khi 429/502/503/504
+// (Render free tier đang ngủ/khởi động hoặc bị giới hạn tốc độ).
+async function fetchJsonWithRetry(url, options = {}, { retries = 3, baseDelay = 1500, timeoutMs = 15000 } = {}) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    let res;
+    try {
+      // Mỗi lần thử tạo signal mới để timeout không bị dùng lại.
+      res = await fetch(url, { ...options, signal: AbortSignal.timeout(timeoutMs) });
+    } catch (e) {
+      if (attempt === retries) throw e;
+      await sleep(baseDelay * 2 ** attempt);
+      continue;
+    }
+
+    const text = await res.text();
+
+    if ([429, 502, 503, 504].includes(res.status) && attempt < retries) {
+      const retryAfter = Number(res.headers.get('retry-after'));
+      await sleep(retryAfter > 0 ? retryAfter * 1000 : baseDelay * 2 ** attempt);
+      continue;
+    }
+
+    let data = null;
+    try { data = JSON.parse(text); } catch (_) {}
+
+    if (!res.ok) {
+      throw new Error(
+        (data && (data.detail || data.message || data.error)) ||
+        `Server đang bận hoặc đang khởi động (HTTP ${res.status}). Vui lòng thử lại sau vài giây.`
+      );
+    }
+    if (data === null) {
+      throw new Error('Server trả về dữ liệu không hợp lệ (không phải JSON). Vui lòng thử lại.');
+    }
+    return data;
+  }
+}
+
 async function callPredictAPI(sl, sw, pl, pw, kernel) {
   const k = (kernel || document.getElementById('svmKernel')?.value || 'linear').toLowerCase();
-  const res = await fetch(`${IRIS_API_BASE}/predict`, {
+  const data = await fetchJsonWithRetry(`${IRIS_API_BASE}/predict`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -468,18 +508,8 @@ async function callPredictAPI(sl, sw, pl, pw, kernel) {
       petal_length: pl,
       petal_width: pw,
       kernel: k
-    }),
-    signal: AbortSignal.timeout(10000)
+    })
   });
-  if (!res.ok) {
-    let detail = `API error ${res.status}`;
-    try {
-      const err = await res.json();
-      detail = err.detail || err.message || detail;
-    } catch (_) {}
-    throw new Error(detail);
-  }
-  const data = await res.json();
   return data.prediction;
 }
 
@@ -612,7 +642,7 @@ async function trainAndRenderBoundary(shouldSaveHistory = false) {
   if (modelInfo) modelInfo.innerText = `Python SVM: ${kernel.toUpperCase()} · Đang huấn luyện thật...`;
 
   try {
-    const response = await fetch(`${IRIS_API_BASE}/train`, {
+    const payload = await fetchJsonWithRetry(`${IRIS_API_BASE}/train`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -620,13 +650,9 @@ async function trainAndRenderBoundary(shouldSaveHistory = false) {
         feature_x: featXIdx,
         feature_y: featYIdx,
         input_features: inputFeatures,
-        grid_resolution: 80
-      }),
-      signal: AbortSignal.timeout(60000)
-    });
-
-    const payload = await response.json();
-    if (!response.ok) throw new Error(payload.detail || payload.message || `Train API error: ${response.status}`);
+        grid_resolution: 50
+      })
+    }, { retries: 2, baseDelay: 3000, timeoutMs: 60000 });
 
     const metrics = payload.metrics || {};
     const params = metrics.params || {};
@@ -1758,16 +1784,21 @@ window.generateRandomSample = async function() {
   }
 
   // Dự đoán loài bằng mô hình SVM thực tế
-  const truePred = await callPredictAPI(sl, sw, pl, pw);
+  try {
+    const truePred = await callPredictAPI(sl, sw, pl, pw);
 
-  currentGuessSample = {
-    sl,
-    sw,
-    pl,
-    pw,
-    trueClass: truePred
-  };
-  updateGuessSampleUI();
+    currentGuessSample = {
+      sl,
+      sw,
+      pl,
+      pw,
+      trueClass: truePred
+    };
+    updateGuessSampleUI();
+  } catch (error) {
+    console.error('[main.js] generateRandomSample failed:', error);
+    alert(`Không thể tạo mẫu ngẫu nhiên.\n\n${error.message}`);
+  }
 };
 
 function updateGuessSampleUI() {
@@ -2199,15 +2230,11 @@ window.analyzeFile = function() {
       }
 
       const kernel = (document.getElementById('svmKernel')?.value || 'linear').toLowerCase();
-      const response = await fetch(`${IRIS_API_BASE}/predict-batch`, {
+      const payload = await fetchJsonWithRetry(`${IRIS_API_BASE}/predict-batch`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, kernel }),
-        signal: AbortSignal.timeout(30000)
-      });
-
-      if (!response.ok) throw new Error(`Batch API error: ${response.status}`);
-      const payload = await response.json();
+        body: JSON.stringify({ items, kernel })
+      }, { retries: 2, baseDelay: 2000, timeoutMs: 30000 });
 
       const validRows = (payload.results || []).map(r => ({
         sl: r.sepal_length,
