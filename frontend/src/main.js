@@ -485,8 +485,10 @@ async function fetchJsonWithRetry(url, options = {}, { retries = 3, baseDelay = 
     try { data = JSON.parse(text); } catch (_) {}
 
     if (!res.ok) {
+      let detail = data && (data.detail || data.message || data.error);
+      if (Array.isArray(detail)) detail = detail.map((d) => d && d.msg ? d.msg : JSON.stringify(d)).join('; ');
       throw new Error(
-        (data && (data.detail || data.message || data.error)) ||
+        (typeof detail === 'string' && detail) ||
         `Server đang bận hoặc đang khởi động (HTTP ${res.status}). Vui lòng thử lại sau vài giây.`
       );
     }
@@ -3309,8 +3311,12 @@ async function checkApiHealth() {
     // Kiểm tra kết nối /health (có fallback file tĩnh /health và /health.json)
     let isApiOnline = false;
     try {
-      const res = await fetch(`${IRIS_API_BASE}/health`, { signal: AbortSignal.timeout(2500) });
-      if (res.ok) isApiOnline = true;
+      const res = await fetch(`${IRIS_API_BASE}/health`, { signal: AbortSignal.timeout(8000) });
+      if (res.ok) {
+        const h = await res.json().catch(() => ({}));
+        // Chỉ coi là Online khi Python SVM API thật sự phản hồi.
+        isApiOnline = h.python_api !== 'offline';
+      }
     } catch (e) {}
 
     if (dot) {
